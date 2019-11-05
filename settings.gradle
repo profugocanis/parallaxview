@@ -1,0 +1,2 @@
+include ':app', ':parallax'
+rootProject.name='ParalaxEmample'

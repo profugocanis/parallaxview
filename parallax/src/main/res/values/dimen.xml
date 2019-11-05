@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="size_default_height">10sp</dimen>
+    <dimen name="view_scroll">300sp</dimen>
+<!--    <color name="trans">#008577</color>-->
+
+</resources>
