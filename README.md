@@ -4,9 +4,15 @@
 
 Add it in your root build.gradle at the end of repositories:
 
-```repositories {
+```groovy
+repositories {
 ...
 maven { url 'https://jitpack.io' }
-}```
+}
 
-`implementation 'com.github.profugocanis:parallax:0.1.1'`
+dependencies {
+...
+implementation 'com.github.profugocanis:parallax:0.1.1'
+}
+```
+
