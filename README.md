@@ -15,4 +15,10 @@ dependencies {
   implementation 'com.github.profugocanis:parallax:0.1.1'
 }
 ```
+# Use
 
+```kotlin
+
+setContentViewForParallax(R.layout.activity_main)
+
+```
