@@ -1,3 +1,7 @@
 # Parallax
 
-[![Build Status](https://img.shields.io/github/release/pandao/editor.md.svg?branch=master)](https://jitpack.io/#profugocanis/parallax/0.1.1)
+
+
+Add it in your root build.gradle at the end of repositories:
+
+implementation 'com.github.profugocanis:parallax:0.1.1'
