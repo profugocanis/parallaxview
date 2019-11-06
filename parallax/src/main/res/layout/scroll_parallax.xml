@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollY="500sp"
-        android:scrollbars="none"
+
         tools:ignore="UselessParent">
+<!--        android:scrollbars="none"-->
 
         <LinearLayout
             android:id="@+id/linearLayoutScroll"
@@ -19,6 +20,7 @@
             android:orientation="vertical">
 
             <View
+                android:id="@+id/viewTop"
                 android:layout_width="match_parent"
                 android:layout_height="1000sp" />
 

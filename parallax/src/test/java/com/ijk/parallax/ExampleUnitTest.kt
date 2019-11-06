@@ -1,4 +1,4 @@
-//package com.ijk.paralaxemample
+//package com.ijk.parallax
 //
 //import org.junit.Test
 //
