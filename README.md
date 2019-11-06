@@ -1,7 +1,7 @@
 # Parallax
 
 
-https://jitpack.io
 
 
-![](https://img.shields.io/github/stars/pandao/editor.md.svg)
+
+![https://jitpack.io](https://img.shields.io/github/release/pandao/editor.md.svg)
