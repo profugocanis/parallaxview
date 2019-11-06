@@ -4,7 +4,7 @@
 
 Add it in your root build.gradle at the end of repositories:
 
-`repositories {
+`repositories { \n
 			...
 			maven { url 'https://jitpack.io' }
 		}`
