@@ -6,13 +6,13 @@ Add it in your root build.gradle at the end of repositories:
 
 ```groovy
 repositories {
-...
-maven { url 'https://jitpack.io' }
+  ...
+  maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-...
-implementation 'com.github.profugocanis:parallax:0.1.1'
+  ...
+  implementation 'com.github.profugocanis:parallax:0.1.1'
 }
 ```
 
