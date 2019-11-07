@@ -4,18 +4,25 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ijk.parallax.setContentViewForParallax
-import com.ijk.parallax.setRecyclerViewFromParallax
+import com.ijk.parallax.ScrollViewParallax
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val scrollViewParallax = ScrollViewParallax()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentViewForParallax(R.layout.activity_main)
+        scrollViewParallax.setContentViewForParallax(R.layout.activity_main, this)
 //        setContentView(R.layout.activity_main)
+        scrollViewParallax.setToolBar(toolbar)
         initRecycler()
-        setRecyclerViewFromParallax(recyclerView)
+        scrollViewParallax.setRecyclerViewFromParallax(recyclerView)
+        scrollViewParallax.setBottomView(linearLayoutBottom)
+
+
+//        setViewFromParallax(linearLayout)
+
     }
 
     private fun initRecycler() {
@@ -50,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = RecyclerViewAdapter(this, animalNames)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-
 
 
 //        recyclerView.scr
