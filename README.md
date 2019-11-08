@@ -15,7 +15,7 @@ dependencies {
   implementation "com.github.profugocanis:parallax:$version"
 }
 ```
-# Use activity
+# Use in Activity
 
 ```kotlin
 ParallaxView.Builder()
