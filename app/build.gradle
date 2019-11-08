@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
     implementation project(path: ':parallax')
-//    implementation 'com.github.profugocanis:parallax:0.1.1'
+//    implementation 'com.github.profugocanis:parallax:0.1.2'
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

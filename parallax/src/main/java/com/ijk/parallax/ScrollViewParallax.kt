@@ -2,7 +2,6 @@ package com.ijk.parallax
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -15,111 +14,107 @@ class ScrollViewParallax {
 
     var view: View? = null
     var scrollView: ScrollView? = null
+    private var isFirst = true
+    var viewOld: View? = null
+    var isRecyclerViewExist = false
+    private var bottomView: View? = null
 
     fun setToolBar(toolbar: View) {
         val linearLayout = view?.findViewById<LinearLayout>(R.id.toolBarLinearLayout)
-
         if (toolbar.parent != null) {
             (toolbar.parent as ViewGroup).removeView(toolbar)
         }
         linearLayout?.addView(toolbar)
     }
 
+    private var bottomViewHeight = 0
+
     fun setBottomView(bottomView: View) {
         val linearLayout = view?.findViewById<LinearLayout>(R.id.bottomViewLinearLayout)
-
+        this.bottomView = bottomView
         if (bottomView.parent != null) {
             (bottomView.parent as ViewGroup).removeView(bottomView)
         }
-
         linearLayout?.addView(bottomView)
+
+        bottomView.viewTreeObserver?.addOnGlobalLayoutListener {
+            bottomViewHeight = bottomView.height
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun setContentViewForParallax(viewChildRes: Int, context: AppCompatActivity) {
-        val viewChild = context.layoutInflater.inflate(viewChildRes, null)
-
-        val view = context.layoutInflater.inflate(R.layout.scroll_parallax, null)
-
-        this.view = view
-
-        view.background = viewChild.background
-        val scrollView = view.findViewById<ScrollView>(R.id.scrollViewParallax)
-        this.scrollView = scrollView
-        val linearLayoutScroll = view.findViewById<LinearLayout>(R.id.linearLayoutScroll)
-
-        linearLayoutScroll.addView(viewChild)
-
-        val bigView = View(context)
-        bigView.setBackgroundResource(R.color.trans)
-        viewChild.setBackgroundResource(R.color.trans)
-
-        bigView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            spToPx(1000F, context)
-        )
-        linearLayoutScroll.addView(bigView)
-        context.setContentView(view)
+    fun setContentViewForParallax(context: AppCompatActivity) {
 
         var viewChildHeight = 0
         var scrollViewHeight = 0
 
-        viewChild.viewTreeObserver.addOnGlobalLayoutListener {
-            viewChildHeight = viewChild.height
+        viewOld?.viewTreeObserver?.addOnGlobalLayoutListener {
+            viewChildHeight = viewOld?.height ?: 0
         }
 
-        scrollView.viewTreeObserver.addOnGlobalLayoutListener {
-            scrollViewHeight = scrollView.height
+        scrollView?.viewTreeObserver?.addOnGlobalLayoutListener {
+            scrollViewHeight = scrollView?.height ?: 0
         }
 
-        val d = spToPx(1000F, context)
+        val d = spToPx(context)
 
-        var isFirstTop = true
-        var isFirstBotton = true
-
-        scrollView.scrollBarSize = 3
-
-        var isFirst = true
-
-        scrollView.viewTreeObserver.addOnScrollChangedListener {
-
-            if (isFirst) {
-                scrollView.smoothScrollTo(0, d)
-                isFirst = false
-            }
-
-            if (viewChildHeight > scrollViewHeight) {
-                if (scrollView.scrollY < d && isFirstTop) {
-                    scrollView.smoothScrollTo(0, d)
-                    isFirstTop = false
-                }
-
-                if (scrollView.scrollY > d) {
-                    isFirstTop = true
-                }
-
-                if (scrollView.scrollY > d + viewChildHeight - scrollViewHeight && isFirstBotton) {
-                    scrollView.smoothScrollTo(0, d + viewChildHeight - scrollViewHeight)
-                    isFirstBotton = false
-                }
-
-                if (scrollView.scrollY < d + viewChildHeight - scrollViewHeight) {
-                    isFirstBotton = true
-                }
-            }
+        this.scrollView?.viewTreeObserver?.addOnScrollChangedListener {
+            toScrollChangedListener(
+                viewChildHeight = viewChildHeight,
+                scrollViewHeight = scrollViewHeight,
+                d = d
+            )
         }
 
-        scrollView.setOnTouchListener { v, event ->
-            scrollView.onTouchEvent(event)
+        this.scrollView?.setOnTouchListener { _, event ->
+            this.scrollView?.onTouchEvent(event)
+            loget(event.eventTime)
             toEvent(
                 event = event.action,
                 viewChildHeight = viewChildHeight,
                 scrollViewHeight = scrollViewHeight,
                 d = d,
-                scrollY = scrollView.scrollY,
-                scrollView = scrollView
+                scrollY = this.scrollView?.scrollY ?: 0,
+                scrollView = this.scrollView
             )
             false
+        }
+    }
+
+    private var isFirstTop = true
+    private var isFirstBottom = true
+
+    private fun toScrollChangedListener(
+        viewChildHeight: Int,
+        scrollViewHeight: Int,
+        d: Int
+    ) {
+        if (isFirst && isRecyclerViewExist) {
+            scrollView?.smoothScrollTo(0, d)
+            isFirst = false
+        }
+
+        if (viewChildHeight >= scrollViewHeight) {
+            if (scrollView!!.scrollY < d && isFirstTop) {
+                scrollView!!.smoothScrollTo(0, d)
+                isFirstTop = false
+            }
+
+            if (scrollView!!.scrollY > d) {
+                isFirstTop = true
+            }
+
+            if (scrollView!!.scrollY > d + viewChildHeight + bottomViewHeight - scrollViewHeight && isFirstBottom) {
+                scrollView!!.smoothScrollTo(
+                    0,
+                    d + viewChildHeight + bottomViewHeight - scrollViewHeight
+                )
+                isFirstBottom = false
+            }
+
+            if (scrollView!!.scrollY < d + viewChildHeight - scrollViewHeight) {
+                isFirstBottom = true
+            }
         }
     }
 
@@ -129,39 +124,35 @@ class ScrollViewParallax {
         scrollViewHeight: Int,
         d: Int,
         scrollY: Int,
-        scrollView: ScrollView
+        scrollView: ScrollView?
     ) {
         if (event == 1) {
             if (viewChildHeight < scrollViewHeight) {
-                scrollView.smoothScrollTo(0, d)
+                scrollView?.smoothScrollTo(0, d)
             } else {
                 if (scrollY < d) {
-                    scrollView.smoothScrollTo(0, d)
+                    scrollView?.smoothScrollTo(0, d)
                 }
                 if (scrollY > d + viewChildHeight - scrollViewHeight) {
-                    scrollView.smoothScrollTo(0, d + viewChildHeight - scrollViewHeight)
+                    scrollView?.smoothScrollTo(
+                        0,
+                        d + viewChildHeight + bottomViewHeight - scrollViewHeight
+                    )
                 }
             }
         }
     }
 
-    fun loget(data: Any) {
-        Log.d("IJKAPP", "ijk: $data")
-    }
-
-    private fun spToPx(sp: Float, context: Context): Int {
+    private fun spToPx(context: Context): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP,
-            sp,
+            1000F,
             context.resources.displayMetrics
         ).toInt()
     }
 
     fun setRecyclerViewFromParallax(recyclerView: RecyclerView) {
+        this.isFirst = true
         recyclerView.isNestedScrollingEnabled = false
     }
-
-
 }
-
-
