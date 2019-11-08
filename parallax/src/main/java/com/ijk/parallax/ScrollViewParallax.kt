@@ -14,10 +14,10 @@ class ScrollViewParallax {
 
     var view: View? = null
     var scrollView: ScrollView? = null
-    private var isFirst = true
     var viewOld: View? = null
     var isRecyclerViewExist = false
     private var bottomView: View? = null
+    private var isFirst = true
 
     fun setToolBar(toolbar: View) {
         val linearLayout = view?.findViewById<LinearLayout>(R.id.toolBarLinearLayout)
@@ -78,6 +78,10 @@ class ScrollViewParallax {
                 scrollView = this.scrollView
             )
             false
+        }
+
+        this.scrollView?.post {
+            this.scrollView?.smoothScrollTo(0, d)
         }
     }
 
