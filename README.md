@@ -20,8 +20,23 @@ dependencies {
 ```kotlin
 ParallaxView.Builder()
             .setContentView(R.layout.activity_main, this)
-            .build(this)
+//            .setRecyclerView(recyclerView)
             .setToolBarView(toolbar)
             .setBottomView(linearLayoutBottom)
+
+```
+
+# Use in Fragment
+
+```kotlin
+override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return ParallaxView.Builder()
+            .setContentView(R.layout.fragment_blank, activity)
+            .buildFragment(activity)
+ }
 
 ```
