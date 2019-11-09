@@ -32,12 +32,6 @@ class ParallaxViewActivity(private val context: AppCompatActivity) {
         return this
     }
 
-//    fun setContentView(viewChildRes: Int, context: FragmentActivity?): ParallaxViewActivity {
-//        this.viewChildRes = viewChildRes
-//        this.viewOld = context?.layoutInflater?.inflate(viewChildRes, null)
-//        return this
-//    }
-
     fun setContentView(viewChild: View): ParallaxViewActivity {
         this.viewOld = viewChild
         return this

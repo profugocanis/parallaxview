@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -24,16 +25,15 @@
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"/>-->
 
-    <TextView
-        android:text="wede"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <FrameLayout
-        android:id="@+id/frgmCont"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
 
 <!--    <ScrollView-->
 <!--        android:id="@+id/scrollView"-->

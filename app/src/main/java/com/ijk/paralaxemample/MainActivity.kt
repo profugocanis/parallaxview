@@ -31,15 +31,7 @@ class MainActivity : AppCompatActivity() {
 //
 //        initRecycler()
 
-        val fTrans = supportFragmentManager.beginTransaction()
 
-        frgmCont
-
-        val f = BlankFragment()
-
-        fTrans.add(R.id.frgmCont, f)
-//        fTrans.show(f)
-        fTrans.commit()
 
 
     }
@@ -81,8 +73,4 @@ class MainActivity : AppCompatActivity() {
 //        recyclerView.scr
     }
 
-}
-
-fun loget(data: Any) {
-    Log.d("IJKAPP", "ijk: $data")
 }

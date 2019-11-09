@@ -16,7 +16,7 @@ class ScrollViewParallax {
     var scrollView: ScrollView? = null
     var viewOld: View? = null
     var isRecyclerViewExist = false
-    private var bottomView: View? = null
+    internal var bottomView: View? = null
     private var isFirst = true
 
     fun setToolBar(toolbar: View) {
@@ -30,8 +30,12 @@ class ScrollViewParallax {
     private var bottomViewHeight = 0
 
     fun setBottomView(bottomView: View) {
+
         val linearLayout = view?.findViewById<LinearLayout>(R.id.bottomViewLinearLayout)
         this.bottomView = bottomView
+
+        loget(view.toString())
+
         if (bottomView.parent != null) {
             (bottomView.parent as ViewGroup).removeView(bottomView)
         }
@@ -39,6 +43,7 @@ class ScrollViewParallax {
 
         bottomView.viewTreeObserver?.addOnGlobalLayoutListener {
             bottomViewHeight = bottomView.height
+            loget(bottomViewHeight)
         }
     }
 
@@ -68,7 +73,6 @@ class ScrollViewParallax {
 
         this.scrollView?.setOnTouchListener { _, event ->
             this.scrollView?.onTouchEvent(event)
-            loget(event.eventTime)
             toEvent(
                 event = event.action,
                 viewChildHeight = viewChildHeight,
