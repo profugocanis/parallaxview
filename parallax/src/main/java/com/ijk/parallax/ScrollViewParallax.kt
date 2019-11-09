@@ -2,8 +2,6 @@ package com.ijk.parallax
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
-import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -79,7 +77,7 @@ class ScrollViewParallax {
             scrollViewHeight = scrollView?.height ?: 0
         }
 
-        val d = spToPx(context)
+        val d = spToPx(1000F, context)
 
 
         this.scrollView?.viewTreeObserver?.addOnScrollChangedListener {
@@ -150,10 +148,13 @@ class ScrollViewParallax {
             }
 
             if (scrollView!!.scrollY > d + viewChildHeight + bottomViewHeight - scrollViewHeight && isFirstBottom && isEvent1) {
-                scrollView!!.smoothScrollTo(
-                    0,
-                    d + viewChildHeight + bottomViewHeight - scrollViewHeight
-                )
+                this.scrollView?.scrollTo(0, this.scrollView?.scrollY!!)
+                this.scrollView?.post {
+                    scrollView!!.smoothScrollTo(
+                        0,
+                        d + viewChildHeight + bottomViewHeight - scrollViewHeight
+                    )
+                }
                 isFirstBottom = false
             }
 
@@ -194,13 +195,13 @@ class ScrollViewParallax {
         }
     }
 
-    private fun spToPx(context: Context): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP,
-            1000F,
-            context.resources.displayMetrics
-        ).toInt()
-    }
+//    private fun spToPx(context: Context): Int {
+//        return TypedValue.applyDimension(
+//            TypedValue.COMPLEX_UNIT_SP,
+//            1000F,
+//            context.resources.displayMetrics
+//        ).toInt()
+//    }
 
     fun setRecyclerViewFromParallax(recyclerView: RecyclerView) {
         this.isFirst = true

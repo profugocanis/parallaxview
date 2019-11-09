@@ -23,7 +23,7 @@ fun getBigView(context: Activity): View {
     return bigView
 }
 
-private fun spToPx(sp: Float, context: Context): Int {
+fun spToPx(sp: Float, context: Context): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_SP,
         sp,
