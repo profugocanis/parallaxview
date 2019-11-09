@@ -3,20 +3,17 @@ package com.ijk.paralaxemample
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.ijk.parallax.ParallaxView
 import com.ijk.parallax.ScrollViewParallax
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val scrollViewParallax = ScrollViewParallax()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        scrollViewParallax.setContentViewForParallax(R.layout.activity_main, this)
 
-//        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 //        scrollViewParallax.setToolBar(toolbar)
 
 //        scrollViewParallax.setScrollViewFromParallax(scrollView)
@@ -27,14 +24,24 @@ class MainActivity : AppCompatActivity() {
 
 //        setViewFromParallax(linearLayout)
 
-        ParallaxView.Builder()
-            .setContentView(R.layout.activity_main, this)
-            .build(this)
-//            .setRecyclerView(recyclerView)
-            .setToolBarView(toolbar)
-            .setBottomView(linearLayoutBottom)
+//        ParallaxView.Builder()
+//            .setContentView(R.layout.activity_main, this)
+//            .build(this)
+////            .setRecyclerView(recyclerView)
+//            .setToolBarView(toolbar)
+//            .setBottomView(linearLayoutBottom)
+//
+//        initRecycler()
 
-        initRecycler()
+        val fTrans = supportFragmentManager.beginTransaction()
+
+        frgmCont
+
+        val f = BlankFragment()
+
+        fTrans.add(R.id.frgmCont, f)
+//        fTrans.show(f)
+        fTrans.commit()
 
 
     }

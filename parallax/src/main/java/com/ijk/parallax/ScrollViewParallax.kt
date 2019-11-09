@@ -1,13 +1,13 @@
 package com.ijk.parallax
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class ScrollViewParallax {
@@ -43,7 +43,7 @@ class ScrollViewParallax {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun setContentViewForParallax(context: AppCompatActivity) {
+    fun setContentViewForParallax(context: Activity) {
 
         var viewChildHeight = 0
         var scrollViewHeight = 0
