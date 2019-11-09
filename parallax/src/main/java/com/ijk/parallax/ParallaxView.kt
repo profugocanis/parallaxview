@@ -26,9 +26,10 @@ class ParallaxView {
         }
     }
 
-    fun setContentView(viewChildRes: Int, context: Activity): ParallaxView {
+    fun setContentView(viewChildRes: Int, context: AppCompatActivity): ParallaxView {
         this.viewChildRes = viewChildRes
         this.viewOld = context.layoutInflater.inflate(viewChildRes, null)
+        buildActivity(context)
         return this
     }
 
@@ -87,7 +88,6 @@ class ParallaxView {
         val linearLayoutScroll = viewNew.findViewById<LinearLayout>(R.id.linearLayoutScroll)
         linearLayoutScroll.addView(viewOld)
         linearLayoutScroll.addView(getBigView(context))
-//        context.setContentView(viewNew)
         this.scrollViewParallax.isRecyclerViewExist = isRecyclerViewExist
         this.scrollViewParallax.setContentViewForParallax(context)
         return viewNew

@@ -24,12 +24,11 @@ class MainActivity : AppCompatActivity() {
 
 //        setViewFromParallax(linearLayout)
 
-//        ParallaxView.Builder()
-//            .setContentView(R.layout.activity_main, this)
-//            .build(this)
-////            .setRecyclerView(recyclerView)
-//            .setToolBarView(toolbar)
-//            .setBottomView(linearLayoutBottom)
+        ParallaxView.Builder()
+            .setContentView(R.layout.activity_main, this)
+//            .setRecyclerView(recyclerView)
+            .setToolBarView(toolbar)
+            .setBottomView(linearLayoutBottom)
 //
 //        initRecycler()
 
