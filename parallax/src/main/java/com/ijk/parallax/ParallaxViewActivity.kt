@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 
 class ParallaxViewActivity(private val context: AppCompatActivity) {
@@ -18,11 +19,17 @@ class ParallaxViewActivity(private val context: AppCompatActivity) {
     private var isRecyclerViewExist = false
     private var toolbarView: View? = null
     private var bottomView: View? = null
+    private var isBlur = false
 
     companion object {
         fun Builder(context: AppCompatActivity): ParallaxViewActivity {
             return ParallaxViewActivity(context)
         }
+    }
+
+    fun setBlur(isBlur: Boolean): ParallaxViewActivity {
+        this.isBlur = isBlur
+        return this
     }
 
     fun setContentView(viewChildRes: Int): ParallaxViewActivity {
@@ -50,7 +57,11 @@ class ParallaxViewActivity(private val context: AppCompatActivity) {
     }
 
     fun setBottomView(bottomView: View): ParallaxViewActivity {
-        scrollViewParallax.setBottomView(bottomView)
+        if (isBlur) {
+            scrollViewParallax.setBottomViewFromBlur(bottomView, context)
+        } else {
+            scrollViewParallax.setBottomView(bottomView)
+        }
         this.bottomView = bottomView
         return this
     }
@@ -67,6 +78,7 @@ class ParallaxViewActivity(private val context: AppCompatActivity) {
         linearLayoutScroll.addView(getBigView(context))
         context.setContentView(viewNew)
         this.scrollViewParallax.isRecyclerViewExist = isRecyclerViewExist
+
         this.scrollViewParallax.setContentViewForParallax(context)
         return this
     }

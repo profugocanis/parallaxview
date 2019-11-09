@@ -1,7 +1,6 @@
 package com.ijk.paralaxemample
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ijk.parallax.ParallaxViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,17 +22,28 @@ class MainActivity : AppCompatActivity() {
 
 //        setViewFromParallax(linearLayout)
 
-//        ParallaxViewActivity.Builder(this)
-//            .setContentView(R.layout.activity_main)
-////            .setRecyclerView(recyclerView)
-//            .setToolBarView(toolbar)
-//            .setBottomView(linearLayoutBottom)
+        ParallaxViewActivity.Builder(this)
+            .setContentView(R.layout.activity_main)
+//            .setRecyclerView(recyclerView)
+            .setToolBarView(toolbar)
+            .setBlur(true)
+            .setBottomView(linearLayoutBottom)
 //
 //        initRecycler()
 
 
-
-
+//        val decorView = window.decorView
+//
+//        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+//
+//        val windowBackground = decorView.background
+//
+//        blurView.setupWith(rootView)
+//            .setBlurEnabled(true)
+//            .setFrameClearDrawable(windowBackground)
+//            .setBlurAlgorithm(RenderScriptBlur(this))
+//            .setBlurRadius(20F)
+//            .setHasFixedTransformationMatrix(true)
     }
 
     private fun initRecycler() {

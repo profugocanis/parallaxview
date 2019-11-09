@@ -2,10 +2,14 @@ package com.ijk.parallax
 
 import android.app.Activity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import eightbitlab.com.blurview.BlurView
+import eightbitlab.com.blurview.RenderScriptBlur
 
 class ParallaxViewFragment(private val context: FragmentActivity?) {
 
@@ -47,6 +51,7 @@ class ParallaxViewFragment(private val context: FragmentActivity?) {
         viewOld?.setBackgroundResource(R.color.trans)
         this.scrollViewParallax.isRecyclerViewExist = isRecyclerViewExist
         this.scrollViewParallax.setContentViewForParallax(context)
+
     }
 
     inner class ParallaxViewFragmentOptions(private val parallaxViewFragment: ParallaxViewFragment) {
@@ -65,7 +70,7 @@ class ParallaxViewFragment(private val context: FragmentActivity?) {
 
         fun setBottomView(bottomView: View): ParallaxViewFragmentOptions {
             scrollViewParallax.setBottomView(bottomView)
-            scrollViewParallax.bottomView = bottomView
+//            scrollViewParallax.bottomView = bottomView
             return this
         }
 

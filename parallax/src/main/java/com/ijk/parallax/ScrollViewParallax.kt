@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
+import eightbitlab.com.blurview.BlurView
+import eightbitlab.com.blurview.RenderScriptBlur
 
 class ScrollViewParallax {
 
@@ -16,7 +18,7 @@ class ScrollViewParallax {
     var scrollView: ScrollView? = null
     var viewOld: View? = null
     var isRecyclerViewExist = false
-    internal var bottomView: View? = null
+    //    internal var bottomView: View? = null
     private var isFirst = true
 
     fun setToolBar(toolbar: View) {
@@ -29,27 +31,43 @@ class ScrollViewParallax {
 
     private var bottomViewHeight = 0
 
-    fun setBottomView(bottomView: View) {
+    fun setBottomViewFromBlur(bottomView: View?, context: Activity?) {
+        val blurView = view?.findViewById<BlurView>(R.id.blurView)
+        val decorView = context?.window?.decorView
+        val rootView = decorView?.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView?.setupWith(rootView)
+            ?.setFrameClearDrawable(windowBackground)
+            ?.setBlurAlgorithm(RenderScriptBlur(context))
+            ?.setBlurRadius(20F)
+            ?.setBlurAutoUpdate(true)
+            ?.setHasFixedTransformationMatrix(true)
+//        blurView.colo
+
+        if (bottomView?.parent != null) {
+            (bottomView.parent as ViewGroup).removeView(bottomView)
+        }
+
+        bottomView?.viewTreeObserver?.addOnGlobalLayoutListener {
+            bottomViewHeight = bottomView.height
+        }
+        blurView?.addView(bottomView)
+    }
+
+    fun setBottomView(bottomView: View?) {
 
         val linearLayout = view?.findViewById<LinearLayout>(R.id.bottomViewLinearLayout)
-        this.bottomView = bottomView
-
-        loget(view.toString())
-
-        if (bottomView.parent != null) {
+        if (bottomView?.parent != null) {
             (bottomView.parent as ViewGroup).removeView(bottomView)
         }
         linearLayout?.addView(bottomView)
-
-        bottomView.viewTreeObserver?.addOnGlobalLayoutListener {
+        bottomView?.viewTreeObserver?.addOnGlobalLayoutListener {
             bottomViewHeight = bottomView.height
-            loget(bottomViewHeight)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     fun setContentViewForParallax(context: Activity) {
-
         var viewChildHeight = 0
         var scrollViewHeight = 0
 
@@ -62,6 +80,7 @@ class ScrollViewParallax {
         }
 
         val d = spToPx(context)
+
 
         this.scrollView?.viewTreeObserver?.addOnScrollChangedListener {
             toScrollChangedListener(
@@ -85,34 +104,52 @@ class ScrollViewParallax {
         }
 
         this.scrollView?.post {
-            this.scrollView?.smoothScrollTo(0, d)
+            this.scrollView?.scrollTo(0, d)
         }
     }
 
-    private var isFirstTop = true
-    private var isFirstBottom = true
+    private var isFirstTop = false
+    private var isFirstBottom = false
+
+    private var isEvent1 = false
 
     private fun toScrollChangedListener(
         viewChildHeight: Int,
         scrollViewHeight: Int,
         d: Int
     ) {
-        if (isFirst && isRecyclerViewExist) {
-            scrollView?.smoothScrollTo(0, d)
-            isFirst = false
-        }
+
+//        loget("-------")
+//        loget(scrollView!!.scrollY)
+//        loget(d)
+
+        loget(isEvent1)
+
 
         if (viewChildHeight >= scrollViewHeight) {
-            if (scrollView!!.scrollY < d && isFirstTop) {
-                scrollView!!.smoothScrollTo(0, d)
+
+            if (!isEvent1 && scrollView!!.scrollY < d) {
                 isFirstTop = false
+            }
+
+            if (scrollView!!.scrollY < d && isFirstTop && isEvent1) {
+                isFirstTop = false
+                this.scrollView?.scrollTo(0, this.scrollView?.scrollY!!)
+                this.scrollView?.post {
+                    this.scrollView?.smoothScrollTo(0, d)
+                }
             }
 
             if (scrollView!!.scrollY > d) {
                 isFirstTop = true
             }
+            //////
 
-            if (scrollView!!.scrollY > d + viewChildHeight + bottomViewHeight - scrollViewHeight && isFirstBottom) {
+            if (!isEvent1 && scrollView!!.scrollY > d + viewChildHeight + bottomViewHeight - scrollViewHeight) {
+                isFirstBottom = false
+            }
+
+            if (scrollView!!.scrollY > d + viewChildHeight + bottomViewHeight - scrollViewHeight && isFirstBottom && isEvent1) {
                 scrollView!!.smoothScrollTo(
                     0,
                     d + viewChildHeight + bottomViewHeight - scrollViewHeight
@@ -134,6 +171,12 @@ class ScrollViewParallax {
         scrollY: Int,
         scrollView: ScrollView?
     ) {
+        if (event == 2) {
+            isEvent1 = false
+        } else if (event == 1) {
+            isEvent1 = true
+        }
+
         if (event == 1) {
             if (viewChildHeight < scrollViewHeight) {
                 scrollView?.smoothScrollTo(0, d)
@@ -141,7 +184,7 @@ class ScrollViewParallax {
                 if (scrollY < d) {
                     scrollView?.smoothScrollTo(0, d)
                 }
-                if (scrollY > d + viewChildHeight - scrollViewHeight) {
+                if (scrollY >= d + viewChildHeight + bottomViewHeight - scrollViewHeight) {
                     scrollView?.smoothScrollTo(
                         0,
                         d + viewChildHeight + bottomViewHeight - scrollViewHeight
