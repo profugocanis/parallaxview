@@ -18,8 +18,8 @@ dependencies {
 # Use in Activity
 
 ```kotlin
-ParallaxView.Builder()
-            .setContentView(R.layout.activity_main, this)
+ParallaxViewActivity.Builder(this)
+            .setContentView(R.layout.activity_main)
 //            .setRecyclerView(recyclerView)
             .setToolBarView(toolbar)
             .setBottomView(linearLayoutBottom)
@@ -34,9 +34,9 @@ override fun onCreateView(
         savedInstanceState: Bundle?
     ): View? {
 
-        return ParallaxView.Builder()
-            .setContentView(R.layout.fragment_blank, activity)
-            .buildFragment(activity)
+        return ParallaxViewFragment.Builder(activity)
+            .setContentView(R.layout.fragment_blank)
+            .buildFragment()
  }
 
 ```
