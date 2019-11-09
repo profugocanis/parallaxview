@@ -38,7 +38,7 @@ override fun onCreateView(
 
         return ParallaxViewFragment.Builder(activity)
             .setContentView(view)
-            .setToolBarView(view.toolBarView)
+            .setToolBarView(view.toolBarView!!)
             .setBottomView(view.bottomView!!)
             .build()
  }
