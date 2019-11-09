@@ -3,8 +3,7 @@ package com.ijk.paralaxemample
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.ijk.parallax.ParallaxView
-import com.ijk.parallax.ScrollViewParallax
+import com.ijk.parallax.ParallaxViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
 //        setViewFromParallax(linearLayout)
 
-        ParallaxView.Builder()
-            .setContentView(R.layout.activity_main, this)
-//            .setRecyclerView(recyclerView)
-            .setToolBarView(toolbar)
-            .setBottomView(linearLayoutBottom)
+//        ParallaxViewActivity.Builder(this)
+//            .setContentView(R.layout.activity_main)
+////            .setRecyclerView(recyclerView)
+//            .setToolBarView(toolbar)
+//            .setBottomView(linearLayoutBottom)
 //
 //        initRecycler()
 

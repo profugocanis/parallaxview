@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 
-class ParallaxView {
+class ParallaxViewActivity(private val context: AppCompatActivity) {
 
     private val scrollViewParallax = ScrollViewParallax()
     private var viewChildRes = -1
@@ -21,48 +20,48 @@ class ParallaxView {
     private var bottomView: View? = null
 
     companion object {
-        fun Builder(): ParallaxView {
-            return ParallaxView()
+        fun Builder(context: AppCompatActivity): ParallaxViewActivity {
+            return ParallaxViewActivity(context)
         }
     }
 
-    fun setContentView(viewChildRes: Int, context: AppCompatActivity): ParallaxView {
+    fun setContentView(viewChildRes: Int): ParallaxViewActivity {
         this.viewChildRes = viewChildRes
         this.viewOld = context.layoutInflater.inflate(viewChildRes, null)
         buildActivity(context)
         return this
     }
 
-    fun setContentView(viewChildRes: Int, context: FragmentActivity?): ParallaxView {
-        this.viewChildRes = viewChildRes
-        this.viewOld = context?.layoutInflater?.inflate(viewChildRes, null)
-        return this
-    }
+//    fun setContentView(viewChildRes: Int, context: FragmentActivity?): ParallaxViewActivity {
+//        this.viewChildRes = viewChildRes
+//        this.viewOld = context?.layoutInflater?.inflate(viewChildRes, null)
+//        return this
+//    }
 
-    fun setContentView(viewChild: View): ParallaxView {
+    fun setContentView(viewChild: View): ParallaxViewActivity {
         this.viewOld = viewChild
         return this
     }
 
-    fun setRecyclerView(recyclerView: RecyclerView): ParallaxView {
+    fun setRecyclerView(recyclerView: RecyclerView): ParallaxViewActivity {
         this.isRecyclerViewExist = true
         scrollViewParallax.setRecyclerViewFromParallax(recyclerView)
         return this
     }
 
-    fun setToolBarView(toolbarView: View): ParallaxView {
+    fun setToolBarView(toolbarView: View): ParallaxViewActivity {
         scrollViewParallax.setToolBar(toolbarView)
         this.toolbarView = toolbarView
         return this
     }
 
-    fun setBottomView(bottomView: View): ParallaxView {
+    fun setBottomView(bottomView: View): ParallaxViewActivity {
         scrollViewParallax.setBottomView(bottomView)
         this.bottomView = bottomView
         return this
     }
 
-    fun buildActivity(context: Activity): ParallaxView {
+    fun buildActivity(context: Activity): ParallaxViewActivity {
         this.scrollViewParallax.viewOld = viewOld
         val viewNew = context.layoutInflater.inflate(R.layout.scroll_parallax, null)
         this.scrollViewParallax.view = viewNew
@@ -76,21 +75,6 @@ class ParallaxView {
         this.scrollViewParallax.isRecyclerViewExist = isRecyclerViewExist
         this.scrollViewParallax.setContentViewForParallax(context)
         return this
-    }
-
-    fun buildFragment(context: FragmentActivity?): View {
-        this.scrollViewParallax.viewOld = viewOld
-        val viewNew = (context as Activity).layoutInflater.inflate(R.layout.scroll_parallax, null)
-        this.scrollViewParallax.view = viewNew
-        viewNew.background = viewOld?.background
-        val scrollView = viewNew.findViewById<ScrollView>(R.id.scrollViewParallax)
-        this.scrollViewParallax.scrollView = scrollView
-        val linearLayoutScroll = viewNew.findViewById<LinearLayout>(R.id.linearLayoutScroll)
-        linearLayoutScroll.addView(viewOld)
-        linearLayoutScroll.addView(getBigView(context))
-        this.scrollViewParallax.isRecyclerViewExist = isRecyclerViewExist
-        this.scrollViewParallax.setContentViewForParallax(context)
-        return viewNew
     }
 
     private fun getBigView(context: Activity): View {
