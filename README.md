@@ -1,6 +1,6 @@
 # Parallax
 
-[![](https://jitpack.io/v/profugocanis/parallax.svg)](https://jitpack.io/#profugocanis/parallax)
+[![](https://jitpack.io/v/profugocanis/parallax.svg)](https://jitpack.io/#profugocanis/parallaxview)
 
 Add it in your root build.gradle at the end of repositories:
 
@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
   ...
-  implementation "com.github.profugocanis:parallax:$version"
+  implementation "com.github.profugocanis:parallaxview:$version"
 }
 ```
 # Use in Activity
