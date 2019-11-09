@@ -12,13 +12,16 @@ repositories {
 
 dependencies {
   ...
-  implementation 'com.github.profugocanis:parallax:0.1.1'
+  implementation "com.github.profugocanis:parallax:$version"
 }
 ```
-# Use
+# Use in Activity
 
 ```kotlin
-
-setContentViewForParallax(R.layout.activity_main)
+ParallaxView.Builder()
+            .setContentView(R.layout.activity_main, this)
+            .build(this)
+            .setToolBarView(toolbar)
+            .setBottomView(linearLayoutBottom)
 
 ```
