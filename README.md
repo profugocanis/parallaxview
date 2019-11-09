@@ -34,9 +34,13 @@ override fun onCreateView(
         savedInstanceState: Bundle?
     ): View? {
 
+        val view = inflater.inflate(R.layout.fragment_blank, container, false)
+
         return ParallaxViewFragment.Builder(activity)
-            .setContentView(R.layout.fragment_blank)
-            .buildFragment()
+            .setContentView(view)
+            .setToolBarView(view.toolBarView!!)
+            .setBottomView(view.bottomView!!)
+            .build()
  }
 
 ```
