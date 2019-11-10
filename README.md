@@ -21,6 +21,7 @@ dependencies {
 ParallaxViewActivity.Builder(this)
             .setContentView(R.layout.activity_main)
 //            .setRecyclerView(recyclerView)
+            .setBlur(true)
             .setToolBarView(toolbar)
             .setBottomView(linearLayoutBottom)
 
