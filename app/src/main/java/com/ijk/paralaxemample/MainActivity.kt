@@ -2,16 +2,17 @@ package com.ijk.paralaxemample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ijk.parallax.ParallaxViewActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ijk.parallax.ParallaxView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        scrollViewParallax.setContentViewForParallax(R.layout.activity_main, this)
+//        scrollViewParallax.initContentViewForParallax(R.layout.activity_main, this)
 
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
 //        scrollViewParallax.setToolBar(toolbar)
 
 //        scrollViewParallax.setScrollViewFromParallax(scrollView)
@@ -22,14 +23,19 @@ class MainActivity : AppCompatActivity() {
 
 //        setViewFromParallax(linearLayout)
 
-        ParallaxViewActivity.Builder(this)
+
+//        (toolbar.parent as ViewGroup).removeView(toolbar)
+
+
+        ParallaxView.Builder(this)
             .setContentView(R.layout.activity_main)
-//            .setRecyclerView(recyclerView)
+            .setRecyclerView(recyclerView)
+            .onBlur()
             .setToolBarView(toolbar)
-            .setBlur(true)
             .setBottomView(linearLayoutBottom)
+            .build()
 //
-//        initRecycler()
+        initRecycler()
 
 
 //        val decorView = window.decorView
@@ -76,8 +82,8 @@ class MainActivity : AppCompatActivity() {
         animalNames.add("Camel")
 
         val adapter = RecyclerViewAdapter(this, animalNames)
-//        recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
 
 //        recyclerView.scr

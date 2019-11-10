@@ -12,7 +12,7 @@ fun loget(data: Any) {
     Log.d("IJKAPP", "ijk: $data")
 }
 
-fun getBigView(context: Activity): View {
+fun getBigView(context: Activity?): View {
     val bigView = View(context)
     bigView.setBackgroundResource(R.color.trans)
 
@@ -23,10 +23,10 @@ fun getBigView(context: Activity): View {
     return bigView
 }
 
-fun spToPx(sp: Float, context: Context): Int {
+fun spToPx(sp: Float, context: Context?): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_SP,
         sp,
-        context.resources.displayMetrics
+        context?.resources?.displayMetrics
     ).toInt()
 }

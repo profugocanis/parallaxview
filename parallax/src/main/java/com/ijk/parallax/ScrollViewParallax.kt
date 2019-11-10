@@ -4,33 +4,24 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.ScrollView
-import androidx.recyclerview.widget.RecyclerView
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
 
 class ScrollViewParallax {
 
-    var view: View? = null
+    var viewNew: View? = null
     var scrollView: ScrollView? = null
     var viewOld: View? = null
-    var isRecyclerViewExist = false
-    //    internal var bottomView: View? = null
-    private var isFirst = true
 
-    fun setToolBar(toolbar: View) {
-        val linearLayout = view?.findViewById<LinearLayout>(R.id.toolBarLinearLayout)
-        if (toolbar.parent != null) {
+    private var toolBarViewHeight = 0
+
+    fun setToolBarFromBlur(toolbar: View?, context: Activity?) {
+        val blurView = viewNew?.findViewById<BlurView>(R.id.toolBarLinearLayout)
+        if (toolbar?.parent != null) {
             (toolbar.parent as ViewGroup).removeView(toolbar)
         }
-        linearLayout?.addView(toolbar)
-    }
-
-    private var bottomViewHeight = 0
-
-    fun setBottomViewFromBlur(bottomView: View?, context: Activity?) {
-        val blurView = view?.findViewById<BlurView>(R.id.blurView)
+        blurView?.addView(toolbar)
         val decorView = context?.window?.decorView
         val rootView = decorView?.findViewById<View>(android.R.id.content) as ViewGroup
         val windowBackground = decorView.background
@@ -40,21 +31,48 @@ class ScrollViewParallax {
             ?.setBlurRadius(20F)
             ?.setBlurAutoUpdate(true)
             ?.setHasFixedTransformationMatrix(true)
-//        blurView.colo
+
+        toolbar?.viewTreeObserver?.addOnGlobalLayoutListener {
+            toolBarViewHeight = toolbar.height
+        }
+    }
+
+    fun setToolBar(toolbar: View?) {
+        val linearLayout = viewNew?.findViewById<BlurView>(R.id.toolBarLinearLayout)
+        if (toolbar?.parent != null) {
+            (toolbar.parent as ViewGroup).removeView(toolbar)
+        }
+        linearLayout?.addView(toolbar)
+        toolbar?.viewTreeObserver?.addOnGlobalLayoutListener {
+            toolBarViewHeight = toolbar.height
+        }
+    }
+
+    private var bottomViewHeight = 0
+
+    fun setBottomViewFromBlur(bottomView: View?, context: Activity?) {
+        val blurView = viewNew?.findViewById<BlurView>(R.id.bottomBlurView)
+        val decorView = context?.window?.decorView
+        val rootView = decorView?.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView?.setupWith(rootView)
+            ?.setFrameClearDrawable(windowBackground)
+            ?.setBlurAlgorithm(RenderScriptBlur(context))
+            ?.setBlurRadius(20F)
+            ?.setBlurAutoUpdate(true)
+            ?.setHasFixedTransformationMatrix(true)
 
         if (bottomView?.parent != null) {
             (bottomView.parent as ViewGroup).removeView(bottomView)
         }
-
+        blurView?.addView(bottomView)
         bottomView?.viewTreeObserver?.addOnGlobalLayoutListener {
             bottomViewHeight = bottomView.height
         }
-        blurView?.addView(bottomView)
     }
 
     fun setBottomView(bottomView: View?) {
-
-        val linearLayout = view?.findViewById<LinearLayout>(R.id.bottomViewLinearLayout)
+        val linearLayout = viewNew?.findViewById<BlurView>(R.id.bottomBlurView)
         if (bottomView?.parent != null) {
             (bottomView.parent as ViewGroup).removeView(bottomView)
         }
@@ -65,7 +83,7 @@ class ScrollViewParallax {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun setContentViewForParallax(context: Activity) {
+    fun initContentViewForParallax(context: Activity?) {
         var viewChildHeight = 0
         var scrollViewHeight = 0
 
@@ -102,13 +120,12 @@ class ScrollViewParallax {
         }
 
         this.scrollView?.post {
-            this.scrollView?.scrollTo(0, d)
+            this.scrollView?.scrollTo(0, d - toolBarViewHeight)
         }
     }
 
     private var isFirstTop = false
     private var isFirstBottom = false
-
     private var isEvent1 = false
 
     private fun toScrollChangedListener(
@@ -116,29 +133,21 @@ class ScrollViewParallax {
         scrollViewHeight: Int,
         d: Int
     ) {
-
-//        loget("-------")
-//        loget(scrollView!!.scrollY)
-//        loget(d)
-
-        loget(isEvent1)
-
-
         if (viewChildHeight >= scrollViewHeight) {
 
-            if (!isEvent1 && scrollView!!.scrollY < d) {
+            if (!isEvent1 && scrollView!!.scrollY < d - toolBarViewHeight) {
                 isFirstTop = false
             }
 
-            if (scrollView!!.scrollY < d && isFirstTop && isEvent1) {
+            if (scrollView!!.scrollY < d - toolBarViewHeight && isFirstTop && isEvent1) {
                 isFirstTop = false
                 this.scrollView?.scrollTo(0, this.scrollView?.scrollY!!)
                 this.scrollView?.post {
-                    this.scrollView?.smoothScrollTo(0, d)
+                    this.scrollView?.smoothScrollTo(0, d - toolBarViewHeight)
                 }
             }
 
-            if (scrollView!!.scrollY > d) {
+            if (scrollView!!.scrollY > d - toolBarViewHeight) {
                 isFirstTop = true
             }
             //////
@@ -180,10 +189,10 @@ class ScrollViewParallax {
 
         if (event == 1) {
             if (viewChildHeight < scrollViewHeight) {
-                scrollView?.smoothScrollTo(0, d)
+                scrollView?.smoothScrollTo(0, d - toolBarViewHeight)
             } else {
-                if (scrollY < d) {
-                    scrollView?.smoothScrollTo(0, d)
+                if (scrollY < d - toolBarViewHeight) {
+                    scrollView?.smoothScrollTo(0, d - toolBarViewHeight)
                 }
                 if (scrollY >= d + viewChildHeight + bottomViewHeight - scrollViewHeight) {
                     scrollView?.smoothScrollTo(
@@ -193,18 +202,5 @@ class ScrollViewParallax {
                 }
             }
         }
-    }
-
-//    private fun spToPx(context: Context): Int {
-//        return TypedValue.applyDimension(
-//            TypedValue.COMPLEX_UNIT_SP,
-//            1000F,
-//            context.resources.displayMetrics
-//        ).toInt()
-//    }
-
-    fun setRecyclerViewFromParallax(recyclerView: RecyclerView) {
-        this.isFirst = true
-        recyclerView.isNestedScrollingEnabled = false
     }
 }

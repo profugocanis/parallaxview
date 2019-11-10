@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ijk.parallax.ParallaxViewFragment
+import com.ijk.parallax.ParallaxView
 import kotlinx.android.synthetic.main.fragment_blank.view.*
 
 class BlankFragment : BaseFragment() {
@@ -16,11 +16,13 @@ class BlankFragment : BaseFragment() {
     ): View {
 
 
-        val view1 = inflater.inflate(R.layout.fragment_blank, container, false)
+        val view = inflater.inflate(R.layout.fragment_blank, container, false)
 
-        return ParallaxViewFragment.Builder(activity)
-            .setContentView(view1)
-            .setBottomView(view1.bottomView!!)
+        return ParallaxView.Builder(activity)
+            .setContentView(view)
+            .setToolBarView(view.toolBar)
+            .setBottomView(view.bottomView)
+            .onBlur()
             .build()
 
 //        return inflater.inflate(R.layout.fragment_blank, container, false)
