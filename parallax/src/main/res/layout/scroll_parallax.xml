@@ -5,17 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/toolBarLinearLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal" />-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
 
         <ScrollView
             android:id="@+id/scrollViewParallax"
@@ -31,47 +23,41 @@
                 android:id="@+id/linearLayoutScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/trans"
                 android:orientation="vertical">
 
                 <View
                     android:id="@+id/viewTop"
                     android:layout_width="match_parent"
-                    android:layout_height="1000sp" />
+                    android:layout_height="1000sp"
+                    android:background="#00FFFFFF" />
 
             </LinearLayout>
         </ScrollView>
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/toolBarLinearLayout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            android:orientation="horizontal" />-->
 
         <eightbitlab.com.blurview.BlurView
             android:id="@+id/toolBarLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:blurOverlayColor="#78ffffff"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
-        </eightbitlab.com.blurview.BlurView>
+            app:blurOverlayColor="#78ffffff"
+            app:layout_constraintTop_toTopOf="parent"></eightbitlab.com.blurview.BlurView>
 
         <!--        app:blurOverlayColor="#78ffffff"-->
         <eightbitlab.com.blurview.BlurView
             android:id="@+id/bottomBlurView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/trans"
             app:blurOverlayColor="#78ffffff"
-            app:layout_constraintBottom_toBottomOf="parent">
-        </eightbitlab.com.blurview.BlurView>
+            app:layout_constraintBottom_toBottomOf="parent"></eightbitlab.com.blurview.BlurView>
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/bottomViewLinearLayout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent" />-->
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/bottomViewLinearLayout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

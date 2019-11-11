@@ -26,10 +26,9 @@ class MainActivity : AppCompatActivity() {
 
 //        (toolbar.parent as ViewGroup).removeView(toolbar)
 
-
         ParallaxView.Builder(this)
             .setContentView(R.layout.activity_main)
-            .setRecyclerView(recyclerView)
+//            .setRecyclerView(recyclerView)
             .onBlur()
             .setToolBarView(toolbar)
             .setBottomView(linearLayoutBottom)
@@ -82,8 +81,8 @@ class MainActivity : AppCompatActivity() {
         animalNames.add("Camel")
 
         val adapter = RecyclerViewAdapter(this, animalNames)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//        recyclerView.adapter = adapter
 
 
 //        recyclerView.scr

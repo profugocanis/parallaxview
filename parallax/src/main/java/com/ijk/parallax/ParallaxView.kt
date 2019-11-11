@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ParallaxView(
     private val context: AppCompatActivity?,
-    val isFragment: Boolean = false
+    private val isFragment: Boolean = false
 ) {
 
     constructor(
@@ -25,10 +25,12 @@ class ParallaxView(
     private var viewNew: View? = null
 
     companion object {
+        @JvmStatic
         fun Builder(context: AppCompatActivity?): ParallaxView {
             return ParallaxView(context)
         }
 
+        @JvmStatic
         fun Builder(context: FragmentActivity?): ParallaxView {
             return ParallaxView(context, true)
         }
@@ -52,16 +54,15 @@ class ParallaxView(
         this.scrollViewParallax.viewOld = viewOld
         viewNew = context?.layoutInflater?.inflate(R.layout.scroll_parallax, null)
         viewNew?.background = viewOld?.background
+        viewOld?.background = null
         val scrollView = viewNew?.findViewById<ScrollView>(R.id.scrollViewParallax)
         this.scrollViewParallax.scrollView = scrollView
         val linearLayoutScroll = viewNew?.findViewById<LinearLayout>(R.id.linearLayoutScroll)
         linearLayoutScroll?.addView(viewOld)
-        linearLayoutScroll?.addView(getBigView(context))
-
+        linearLayoutScroll?.addView(getBigView(context, viewNew?.background))
 
         if (!isFragment)
             context?.setContentView(viewNew)
-
 
         this.scrollViewParallax.viewNew = viewNew
         this.scrollViewParallax.initContentViewForParallax(context)
