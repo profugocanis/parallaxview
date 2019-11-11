@@ -18,14 +18,14 @@ class BlankFragment : BaseFragment() {
 
         val view = inflater.inflate(R.layout.fragment_blank, container, false)
 
-        return ParallaxView.Builder(activity)
-            .setContentView(view)
-            .setToolBarView(view.toolBar)
-            .setBottomView(view.bottomView)
-            .onBlur()
-            .build()
+//        return ParallaxView.Builder(activity)
+//            .setContentView(view)
+//            .setToolBarView(view.toolBar)
+//            .setBottomView(view.bottomView)
+//            .onBlur()
+//            .build()
 
-//        return inflater.inflate(R.layout.fragment_blank, container, false)
+        return inflater.inflate(R.layout.fragment_blank, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

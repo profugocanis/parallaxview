@@ -5,50 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ijk.parallax.ParallaxView
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        scrollViewParallax.initContentViewForParallax(R.layout.activity_main, this)
 
 //        setContentView(R.layout.activity_main)
-//        scrollViewParallax.setToolBar(toolbar)
-
-//        scrollViewParallax.setScrollViewFromParallax(scrollView)
-
-//        scrollViewParallax.setRecyclerViewFromParallax(recyclerView)
-//        scrollViewParallax.setBottomView(linearLayoutBottom)
-
-
-//        setViewFromParallax(linearLayout)
-
-
-//        (toolbar.parent as ViewGroup).removeView(toolbar)
 
         ParallaxView.Builder(this)
             .setContentView(R.layout.activity_main)
-//            .setRecyclerView(recyclerView)
-            .onBlur()
+            .setRecyclerView(recyclerView)
             .setToolBarView(toolbar)
             .setBottomView(linearLayoutBottom)
             .build()
-//
         initRecycler()
 
-
-//        val decorView = window.decorView
-//
-//        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
-//
-//        val windowBackground = decorView.background
-//
-//        blurView.setupWith(rootView)
-//            .setBlurEnabled(true)
-//            .setFrameClearDrawable(windowBackground)
-//            .setBlurAlgorithm(RenderScriptBlur(this))
-//            .setBlurRadius(20F)
-//            .setHasFixedTransformationMatrix(true)
     }
 
     private fun initRecycler() {
@@ -81,9 +55,16 @@ class MainActivity : AppCompatActivity() {
         animalNames.add("Camel")
 
         val adapter = RecyclerViewAdapter(this, animalNames)
-//        recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
+        val r = Random()
+
+        txtAddToRecyclerView.setOnClickListener {
+            animalNames.add(r.nextInt().toString())
+            adapter.notifyDataSetChanged()
+            recyclerView.scrollToPosition(animalNames.size - 1)
+        }
 
 //        recyclerView.scr
     }

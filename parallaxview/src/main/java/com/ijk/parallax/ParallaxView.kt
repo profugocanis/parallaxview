@@ -69,10 +69,10 @@ class ParallaxView(
     }
 
     inner class Options {
-        fun onBlur(): Options {
-            isBlur = true
-            return this
-        }
+//        fun onBlur(): Options {
+//            isBlur = true
+//            return this
+//        }
 
         fun setRecyclerView(recyclerView: RecyclerView): Options {
             recyclerView.isNestedScrollingEnabled = false
@@ -92,14 +92,14 @@ class ParallaxView(
         fun build(): View {
             if (toolBarView1 != null)
                 if (isBlur) {
-                    scrollViewParallax.setToolBarFromBlur(toolBarView1, context)
+//                    scrollViewParallax.setToolBarFromBlur(toolBarView1, context)
                 } else {
                     scrollViewParallax.setToolBar(toolBarView1)
                 }
 
             if (bottomView1 != null)
                 if (isBlur) {
-                    scrollViewParallax.setBottomViewFromBlur(bottomView1, context)
+//                    scrollViewParallax.setBottomViewFromBlur(bottomView1, context)
                 } else {
                     scrollViewParallax.setBottomView(bottomView1)
                 }

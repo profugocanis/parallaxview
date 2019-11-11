@@ -35,22 +35,21 @@
             </LinearLayout>
         </ScrollView>
 
-        <eightbitlab.com.blurview.BlurView
+        <LinearLayout
             android:id="@+id/toolBarLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:blurOverlayColor="#78ffffff"
-            app:layout_constraintTop_toTopOf="parent"></eightbitlab.com.blurview.BlurView>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--        app:blurOverlayColor="#78ffffff"-->
-        <eightbitlab.com.blurview.BlurView
+        <LinearLayout
             android:id="@+id/bottomBlurView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/trans"
-            app:blurOverlayColor="#78ffffff"
-            app:layout_constraintBottom_toBottomOf="parent"></eightbitlab.com.blurview.BlurView>
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <!--        <LinearLayout-->
         <!--            android:id="@+id/bottomViewLinearLayout"-->

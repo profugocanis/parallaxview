@@ -5,8 +5,8 @@ import android.app.Activity
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.ScrollView
-import eightbitlab.com.blurview.BlurView
 import kotlin.math.abs
 import kotlin.math.pow
 
@@ -22,20 +22,20 @@ class ScrollViewParallax {
     private var toolBarViewHeight = 0
     private var bottomViewHeight = 0
 
-    fun setToolBarFromBlur(toolbar: View?, context: Activity?) {
-        val blurView = getBlurView(context, viewNew, R.id.toolBarLinearLayout)
-        if (toolbar?.parent != null) {
-            (toolbar.parent as ViewGroup).removeView(toolbar)
-        }
-        blurView?.addView(toolbar)
-
-        toolbar?.viewTreeObserver?.addOnGlobalLayoutListener {
-            toolBarViewHeight = toolbar.height
-        }
-    }
+//    fun setToolBarFromBlur(toolbar: View?, context: Activity?) {
+//        val blurView = getBlurView(context, viewNew, R.id.toolBarLinearLayout)
+//        if (toolbar?.parent != null) {
+//            (toolbar.parent as ViewGroup).removeView(toolbar)
+//        }
+//        blurView?.addView(toolbar)
+//
+//        toolbar?.viewTreeObserver?.addOnGlobalLayoutListener {
+//            toolBarViewHeight = toolbar.height
+//        }
+//    }
 
     fun setToolBar(toolbar: View?) {
-        val linearLayout = viewNew?.findViewById<BlurView>(R.id.toolBarLinearLayout)
+        val linearLayout = viewNew?.findViewById<LinearLayout>(R.id.toolBarLinearLayout)
         if (toolbar?.parent != null) {
             (toolbar.parent as ViewGroup).removeView(toolbar)
         }
@@ -45,20 +45,20 @@ class ScrollViewParallax {
         }
     }
 
-    fun setBottomViewFromBlur(bottomView: View?, context: Activity?) {
-        val blurView = getBlurView(context, viewNew, R.id.bottomBlurView)
-
-        if (bottomView?.parent != null) {
-            (bottomView.parent as ViewGroup).removeView(bottomView)
-        }
-        blurView?.addView(bottomView)
-        bottomView?.viewTreeObserver?.addOnGlobalLayoutListener {
-            bottomViewHeight = bottomView.height
-        }
-    }
+//    fun setBottomViewFromBlur(bottomView: View?, context: Activity?) {
+//        val blurView = getBlurView(context, viewNew, R.id.bottomBlurView)
+//
+//        if (bottomView?.parent != null) {
+//            (bottomView.parent as ViewGroup).removeView(bottomView)
+//        }
+//        blurView?.addView(bottomView)
+//        bottomView?.viewTreeObserver?.addOnGlobalLayoutListener {
+//            bottomViewHeight = bottomView.height
+//        }
+//    }
 
     fun setBottomView(bottomView: View?) {
-        val linearLayout = viewNew?.findViewById<BlurView>(R.id.bottomBlurView)
+        val linearLayout = viewNew?.findViewById<LinearLayout>(R.id.bottomBlurView)
         if (bottomView?.parent != null) {
             (bottomView.parent as ViewGroup).removeView(bottomView)
         }
@@ -81,7 +81,7 @@ class ScrollViewParallax {
             scrollViewHeight = this.scrollView?.height ?: 0
         }
 
-        val d = spToPx(1000F, context)
+        val d = spToPx(1_000F, context)
 
         this.scrollView?.viewTreeObserver?.addOnScrollChangedListener {
             toScrollChangedListener(
@@ -106,7 +106,7 @@ class ScrollViewParallax {
             if (viewChildHeight >= scrollViewHeight) {
                 scrollBottom(event, d, viewChildHeight, scrollViewHeight)
             } else {
-                scrollTopLittleSpeed(event, d)
+                scrollLittleTopSpeed(event, d)
             }
 
             false
@@ -117,19 +117,31 @@ class ScrollViewParallax {
         }
     }
 
-    private var yFirstTouch = 0F
-    private var isYFirstTouch = true
+    private var yFirstTouchBottom = 0F
+    private var isYFirstTouchBottom = true
+    private var isYFirstTouchBottom2 = true
+
+    private var yFirstTouchLittleTopBottom = 0F
+    private var isYFirstTouchLittleTopBottom = true
+
+    private var yFirstTouchTop = 0F
+    private var isYFirstTouchTop = true
+    private var isYFirstTouchTop2 = true
+
+    private var isOnPresetTop = false
+    private var isOnPresetBottom = false
+
     private val POW_COEFFICIENT = 0.9
 
-    private fun scrollTopLittleSpeed(event: MotionEvent, d: Int) {
-        if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouch) {
-            yFirstTouch = event.y
-            isYFirstTouch = false
+    private fun scrollLittleTopSpeed(event: MotionEvent, d: Int) {
+        if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouchLittleTopBottom) {
+            yFirstTouchLittleTopBottom = event.y
+            isYFirstTouchLittleTopBottom = false
         }
         if (event.action == MotionEvent.ACTION_UP) {
-            isYFirstTouch = true
+            isYFirstTouchLittleTopBottom = true
         }
-        val dy = abs(event.y - yFirstTouch).toDouble()
+        val dy = abs(event.y - yFirstTouchLittleTopBottom).toDouble()
         if (event.action == MotionEvent.ACTION_MOVE && dy != 0.toDouble()) {
             if (scrollView?.scrollY!! > d - toolBarViewHeight) {
                 this.scrollView?.scrollTo(
@@ -140,20 +152,42 @@ class ScrollViewParallax {
         }
     }
 
+
     private fun scrollTop(event: MotionEvent, d: Int) {
-        if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouch) {
-            yFirstTouch = event.y
-            isYFirstTouch = false
+        if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouchTop) {
+            yFirstTouchTop = event.y
+            isYFirstTouchTop = false
         }
         if (event.action == MotionEvent.ACTION_UP) {
-            isYFirstTouch = true
+            isYFirstTouchTop = true
+            yFirstTouchTop = 0F
         }
-        val dy = abs(event.y - yFirstTouch).toDouble()
-        if (event.action == MotionEvent.ACTION_MOVE && dy != 0.toDouble()) {
+        var dy = abs(event.y - yFirstTouchTop).toDouble().pow(POW_COEFFICIENT).toInt()
+
+        if (scrollView?.scrollY!! > d - toolBarViewHeight) {
+            isOnPresetTop = true
+            isYFirstTouchTop = true
+        }
+
+        if (event.action == MotionEvent.ACTION_MOVE) {
             if (scrollView?.scrollY!! < d - toolBarViewHeight) {
+                //////////
+                if (isOnPresetTop) {
+                    if (isYFirstTouchTop2) {
+                        yFirstTouchTop = event.y
+                        isYFirstTouchTop2 = false
+                    }
+                    if (event.action == MotionEvent.ACTION_UP) {
+                        isYFirstTouchTop2 = true
+                        yFirstTouchTop = 0F
+                    }
+                    dy = abs(event.y - yFirstTouchTop).toDouble().pow(POW_COEFFICIENT).toInt()
+                }
+                /////////
+
                 this.scrollView?.scrollTo(
                     0,
-                    d - toolBarViewHeight - dy.pow(POW_COEFFICIENT).toInt()
+                    d - toolBarViewHeight - dy
                 )
             }
         }
@@ -165,21 +199,38 @@ class ScrollViewParallax {
         viewChildHeight: Int,
         scrollViewHeight: Int
     ) {
-        if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouch) {
-            yFirstTouch = event.y
-            isYFirstTouch = false
+        if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouchBottom) {
+            yFirstTouchBottom = event.y
+            isYFirstTouchBottom = false
         }
         if (event.action == MotionEvent.ACTION_UP) {
-            isYFirstTouch = true
+            isYFirstTouchBottom = true
         }
-        val dy = abs(event.y - yFirstTouch).toDouble()
-        if (event.action == MotionEvent.ACTION_MOVE && dy != 0.toDouble()) {
+
+        if (scrollView?.scrollY!! < d + viewChildHeight + bottomViewHeight - scrollViewHeight) {
+            isOnPresetBottom = true
+            isYFirstTouchBottom = true
+        }
+
+        var dy = abs(event.y - yFirstTouchBottom).toDouble().pow(
+            POW_COEFFICIENT
+        ).toInt()
+        if (event.action == MotionEvent.ACTION_MOVE) {
             if (scrollView?.scrollY!! > d + viewChildHeight + bottomViewHeight - scrollViewHeight) {
+                if (isOnPresetBottom) {
+                    if (isYFirstTouchBottom2) {
+                        yFirstTouchBottom = event.y
+                        isYFirstTouchBottom2 = false
+                    }
+                    if (event.action == MotionEvent.ACTION_UP) {
+                        isYFirstTouchBottom2 = true
+                        yFirstTouchBottom = 0F
+                    }
+                    dy = abs(event.y - yFirstTouchBottom).toDouble().pow(POW_COEFFICIENT).toInt()
+                }
                 this.scrollView?.scrollTo(
                     0,
-                    d + viewChildHeight + bottomViewHeight - scrollViewHeight + dy.pow(
-                        POW_COEFFICIENT
-                    ).toInt()
+                    d + viewChildHeight + bottomViewHeight - scrollViewHeight + dy
                 )
             }
         }

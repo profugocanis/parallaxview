@@ -26,10 +26,10 @@ android {
 }
 
 dependencies {
-    //============| BlurView |============
-    implementation 'com.eightbitlab:blurview:1.6.3'
-    //============| Picasso |============
-    implementation 'com.squareup.picasso:picasso:2.71828'
+//    //============| BlurView |============
+//    implementation 'com.eightbitlab:blurview:1.6.3'
+//    //============| Picasso |============
+//    implementation 'com.squareup.picasso:picasso:2.71828'
     //============| RecyclerView |============
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     //============| ConstraintLayout |============
