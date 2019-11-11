@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
   ...
-  implementation "com.github.profugocanis:parallaxview:$version"
+  implementation "com.github.profugocanis:parallaxview:$parallax_view_version"
 }
 ```
 # Use in Activity
