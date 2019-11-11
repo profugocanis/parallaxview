@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import com.ijk.parallax.Utils.POW_COEFFICIENT
+import com.ijk.parallax.Utils.spToPx
 import kotlin.math.abs
 import kotlin.math.pow
 
@@ -22,18 +24,6 @@ class ScrollViewParallax {
     private var toolBarViewHeight = 0
     private var bottomViewHeight = 0
 
-//    fun setToolBarFromBlur(toolbar: View?, context: Activity?) {
-//        val blurView = getBlurView(context, viewNew, R.id.toolBarLinearLayout)
-//        if (toolbar?.parent != null) {
-//            (toolbar.parent as ViewGroup).removeView(toolbar)
-//        }
-//        blurView?.addView(toolbar)
-//
-//        toolbar?.viewTreeObserver?.addOnGlobalLayoutListener {
-//            toolBarViewHeight = toolbar.height
-//        }
-//    }
-
     fun setToolBar(toolbar: View?) {
         val linearLayout = viewNew?.findViewById<LinearLayout>(R.id.toolBarLinearLayout)
         if (toolbar?.parent != null) {
@@ -44,18 +34,6 @@ class ScrollViewParallax {
             toolBarViewHeight = toolbar.height
         }
     }
-
-//    fun setBottomViewFromBlur(bottomView: View?, context: Activity?) {
-//        val blurView = getBlurView(context, viewNew, R.id.bottomBlurView)
-//
-//        if (bottomView?.parent != null) {
-//            (bottomView.parent as ViewGroup).removeView(bottomView)
-//        }
-//        blurView?.addView(bottomView)
-//        bottomView?.viewTreeObserver?.addOnGlobalLayoutListener {
-//            bottomViewHeight = bottomView.height
-//        }
-//    }
 
     fun setBottomView(bottomView: View?) {
         val linearLayout = viewNew?.findViewById<LinearLayout>(R.id.bottomBlurView)
@@ -131,7 +109,6 @@ class ScrollViewParallax {
     private var isOnPresetTop = false
     private var isOnPresetBottom = false
 
-    private val POW_COEFFICIENT = 0.9
 
     private fun scrollLittleTopSpeed(event: MotionEvent, d: Int) {
         if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouchLittleTopBottom) {

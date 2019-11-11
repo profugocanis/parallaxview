@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
             .setBottomView(linearLayoutBottom)
             .build()
         initRecycler()
-
     }
 
     private fun initRecycler() {

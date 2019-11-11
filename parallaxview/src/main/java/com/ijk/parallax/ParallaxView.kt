@@ -7,6 +7,7 @@ import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.ijk.parallax.Utils.getBigView
 
 class ParallaxView(
     private val context: AppCompatActivity?,
@@ -21,7 +22,6 @@ class ParallaxView(
     private val scrollViewParallax = ScrollViewParallax()
     private var toolBarView1: View? = null
     private var bottomView1: View? = null
-    private var isBlur = false
     private var viewNew: View? = null
 
     companion object {
@@ -69,10 +69,6 @@ class ParallaxView(
     }
 
     inner class Options {
-//        fun onBlur(): Options {
-//            isBlur = true
-//            return this
-//        }
 
         fun setRecyclerView(recyclerView: RecyclerView): Options {
             recyclerView.isNestedScrollingEnabled = false
@@ -90,19 +86,8 @@ class ParallaxView(
         }
 
         fun build(): View {
-            if (toolBarView1 != null)
-                if (isBlur) {
-//                    scrollViewParallax.setToolBarFromBlur(toolBarView1, context)
-                } else {
-                    scrollViewParallax.setToolBar(toolBarView1)
-                }
-
-            if (bottomView1 != null)
-                if (isBlur) {
-//                    scrollViewParallax.setBottomViewFromBlur(bottomView1, context)
-                } else {
-                    scrollViewParallax.setBottomView(bottomView1)
-                }
+            scrollViewParallax.setToolBar(toolBarView1)
+            scrollViewParallax.setBottomView(bottomView1)
             return viewNew ?: View(context)
         }
     }
