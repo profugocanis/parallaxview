@@ -18,13 +18,20 @@ dependencies {
 # Use in Activity
 
 ```kotlin
-ParallaxView.Builder(this)
-            .setContentView(R.layout.activity_main)
-            .setRecyclerView(recyclerView)
-            .setToolBarView(toolBarView)
-            .setBottomView(bottomView)
-            .onBlur()
-            .build()
+
+override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_main)
+        ParallaxView.Builder(this)
+                   .setContentView(R.layout.activity_main)
+                   .setRecyclerView(recyclerView)
+                   .setToolBarView(toolBarView)
+                   .setBottomView(bottomView)
+                   .onBlur()
+                   .build()
+...                   
+}
+      
 
 ```
 
@@ -35,9 +42,8 @@ override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_blank, container, false)
-
+...
         return ParallaxView.Builder(activity)
             .setContentView(view)
             .setToolBarView(view.toolBarView)
