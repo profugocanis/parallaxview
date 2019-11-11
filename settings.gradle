@@ -1,2 +1,2 @@
-include ':app', ':parallax'
+include ':app', ':parallaxview'
 rootProject.name='ParalaxEmample'
