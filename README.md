@@ -27,7 +27,6 @@ override fun onCreate(savedInstanceState: Bundle?) {
                    .setRecyclerView(recyclerView)
                    .setToolBarView(toolBarView)
                    .setBottomView(bottomView)
-                   .onBlur()
                    .build()
         ...                   
 }
@@ -48,7 +47,6 @@ override fun onCreateView(
             .setContentView(view)
             .setToolBarView(view.toolBarView)
             .setBottomView(view.bottomView)
-            .onBlur()
             .build()
  }
 
