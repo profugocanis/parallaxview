@@ -13,15 +13,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-        ParallaxView.Builder(this)
-            .setContentView(R.layout.activity_main)
-            .setRecyclerView(recyclerView)
-            .setToolBarView(toolbar)
-            .setBottomView(linearLayoutBottom)
-            .build()
-        initRecycler()
+//        ParallaxView.Builder(this)
+//            .setContentView(R.layout.activity_main)
+//            .setRecyclerView(recyclerView)
+//            .setToolBarView(toolbar)
+//            .setBottomView(linearLayoutBottom)
+//            .build()
+//        initRecycler()
     }
 
     private fun initRecycler() {
@@ -54,16 +54,16 @@ class MainActivity : AppCompatActivity() {
         animalNames.add("Camel")
 
         val adapter = RecyclerViewAdapter(this, animalNames)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-        val r = Random()
-
-        txtAddToRecyclerView.setOnClickListener {
-            animalNames.add(r.nextInt().toString())
-            adapter.notifyDataSetChanged()
-            recyclerView.scrollToPosition(animalNames.size - 1)
-        }
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//        recyclerView.adapter = adapter
+//
+//        val r = Random()
+//
+//        txtAddToRecyclerView.setOnClickListener {
+//            animalNames.add(r.nextInt().toString())
+//            adapter.notifyDataSetChanged()
+//            recyclerView.scrollToPosition(animalNames.size - 1)
+//        }
 
 //        recyclerView.scr
     }

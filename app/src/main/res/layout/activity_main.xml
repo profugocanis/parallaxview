@@ -2,37 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/ic_launcher_foreground"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent">
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/colorAccent">-->
 
-        <TextView
-            android:id="@+id/txtAddToRecyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back" />
-    </androidx.appcompat.widget.Toolbar>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtAddToRecyclerView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Back" />-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
 
 
-    <!--    <fragment-->
-    <!--        android:id="@+id/nav_host_fragment"-->
-    <!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        app:defaultNavHost="true"-->
-    <!--        app:navGraph="@navigation/nav_graph" />-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
+
+
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph" />
 
 
     <!--    <ScrollView-->
@@ -94,22 +95,22 @@
     <!--    </ScrollView>-->
 
 
-    <LinearLayout
-        android:id="@+id/linearLayoutBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:orientation="horizontal">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayoutBottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/colorAccent"-->
+<!--        android:orientation="horizontal">-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginBottom="10sp"
-            android:text="IJK parallax" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10sp"-->
+<!--            android:layout_marginTop="10sp"-->
+<!--            android:layout_marginBottom="10sp"-->
+<!--            android:text="IJK parallax" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 
     <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->

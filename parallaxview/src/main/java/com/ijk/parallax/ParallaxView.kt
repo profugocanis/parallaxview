@@ -86,8 +86,10 @@ class ParallaxView(
         }
 
         fun build(): View {
-            scrollViewParallax.setToolBar(toolBarView1)
-            scrollViewParallax.setBottomView(bottomView1)
+            if (toolBarView1 != null)
+                scrollViewParallax.setToolBar(toolBarView1)
+            if (bottomView1 != null)
+                scrollViewParallax.setBottomView(bottomView1)
             return viewNew ?: View(context)
         }
     }
