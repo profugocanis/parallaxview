@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+<!--        android:scrollbars="none"-->
         <ScrollView
             android:id="@+id/scrollViewParallax"
             android:layout_width="match_parent"
@@ -17,7 +18,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UselessParent">
-            <!--   android:scrollbars="none"     -->
 
             <LinearLayout
                 android:id="@+id/linearLayoutScroll"
@@ -27,7 +27,7 @@
                 android:orientation="vertical">
 
                 <View
-                    android:id="@+id/viewTop"
+                    android:id="@+id/topBigView"
                     android:layout_width="match_parent"
                     android:layout_height="1000sp"
                     android:background="#00FFFFFF" />

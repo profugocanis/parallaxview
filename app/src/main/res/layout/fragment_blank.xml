@@ -18,6 +18,7 @@
 
     <ScrollView
         android:id="@+id/scrollView"
+        android:scrollbarSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

@@ -34,4 +34,20 @@ object Utils {
             context?.resources?.displayMetrics
         ).toInt()
     }
+
+    fun getTime(f: Int): Long {
+        var res = 1L
+        if (f < 20) {
+            res = 5L
+        }
+        return res
+    }
+
+    fun getDY(f: Float): Float {
+        var res = 5F
+        if (f < 20) {
+            res = 1F
+        }
+        return res
+    }
 }

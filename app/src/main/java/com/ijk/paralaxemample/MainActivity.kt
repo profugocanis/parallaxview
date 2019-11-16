@@ -1,12 +1,16 @@
 package com.ijk.paralaxemample
 
+import android.content.Context
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.ijk.parallax.ParallaxView
+import com.ijk.parallax.ParallaxViewBottom
+import com.ijk.parallax.ParallaxViewTop
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,11 +19,19 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+
+//        scrollView.setOnTouchListener(OnTuckListener(this, main))
+
+
+        ParallaxViewTop(scrollView)
+//        ParallaxViewBottom(scrollView)
+
+
 //        ParallaxView.Builder(this)
 //            .setContentView(R.layout.activity_main)
-//            .setRecyclerView(recyclerView)
-//            .setToolBarView(toolbar)
-//            .setBottomView(linearLayoutBottom)
+////            .setRecyclerView(recyclerView)
+////            .setToolBarView(toolbar)
+////            .setBottomView(linearLayoutBottom)
 //            .build()
 //        initRecycler()
     }
@@ -68,4 +80,47 @@ class MainActivity : AppCompatActivity() {
 //        recyclerView.scr
     }
 
+    private class OnTuckListener(val context: Context, val mainLayout: ViewGroup) :
+        View.OnTouchListener {
+
+        private var xDelta: Int = 0
+        private var yDelta: Int = 0
+
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+
+//            val x = event?.rawX?.toInt() ?: 0
+            val y = event?.rawY?.toInt() ?: 0
+
+            val action = event?.action ?: 0
+
+            when (action and MotionEvent.ACTION_MASK) {
+
+                MotionEvent.ACTION_DOWN -> {
+                    val lParams = v?.layoutParams as LinearLayout.LayoutParams
+
+//                    xDelta = x - lParams.leftMargin
+                    yDelta = y - lParams.topMargin
+                }
+
+                MotionEvent.ACTION_UP -> Toast.makeText(
+                    context,
+                    "thanks for new location!", Toast.LENGTH_SHORT
+                )
+                    .show()
+
+                MotionEvent.ACTION_MOVE -> {
+                    val layoutParams = v
+                        ?.layoutParams as LinearLayout.LayoutParams
+//                    layoutParams.leftMargin = x - xDelta
+                    layoutParams.topMargin = y - yDelta
+                    layoutParams.rightMargin = 0
+                    layoutParams.bottomMargin = 0
+                    v.layoutParams = layoutParams
+                }
+            }
+            mainLayout.invalidate()
+            return true
+        }
+    }
 }
+

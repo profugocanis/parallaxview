@@ -59,10 +59,14 @@ class ParallaxView(
         this.scrollViewParallax.scrollView = scrollView
         val linearLayoutScroll = viewNew?.findViewById<LinearLayout>(R.id.linearLayoutScroll)
         linearLayoutScroll?.addView(viewOld)
-        linearLayoutScroll?.addView(getBigView(context, viewNew?.background))
-
+        val bottomBigView = getBigView(context, viewNew?.background)
+        linearLayoutScroll?.addView(bottomBigView)
+        this.scrollViewParallax.bottomBigView = bottomBigView
+        this.scrollViewParallax.topBigView = viewNew?.findViewById(R.id.topBigView)
         if (!isFragment)
             context?.setContentView(viewNew)
+
+
 
         this.scrollViewParallax.viewNew = viewNew
         this.scrollViewParallax.initContentViewForParallax(context)

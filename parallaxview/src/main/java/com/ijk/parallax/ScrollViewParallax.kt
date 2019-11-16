@@ -17,6 +17,8 @@ class ScrollViewParallax {
     var viewNew: View? = null
     var scrollView: ScrollView? = null
     var viewOld: View? = null
+    var bottomBigView: View? = null
+    var topBigView: View? = null
 
     private var isFirstTop = false
     private var isFirstBottom = false
