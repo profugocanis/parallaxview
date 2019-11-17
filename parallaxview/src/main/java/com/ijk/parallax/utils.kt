@@ -7,6 +7,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import kotlin.math.pow
 
 object Utils {
 
@@ -35,19 +36,29 @@ object Utils {
         ).toInt()
     }
 
+//    fun getTime(f: Int): Long {
+//        var res = 1L
+//        if (f < 20) {
+//            res = 20L
+//        }
+//        return res
+//    }
+
     fun getTime(f: Int): Long {
-        var res = 1L
-        if (f < 20) {
-            res = 20L
+        if (f <= 0){
+            return 1L
         }
+        val res = 70/f.toDouble().pow(0.85).toLong()
+        loget(res)
         return res
     }
 
     fun getDY(f: Float): Float {
-        var res = 3F
-        if (f < 20) {
-            res = 1F
-        }
-        return res
+//        var res = 3F
+//        if (f < 20) {
+//            res = 1F
+//        }
+//        return res
+        return 1F
     }
 }

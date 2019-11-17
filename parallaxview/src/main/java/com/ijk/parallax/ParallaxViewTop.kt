@@ -91,8 +91,6 @@ class ParallaxViewTop(private val scrollView: ScrollView) {
 
 //            dyFromAnim2 = (rawY - firstY).toDouble().pow(0.8).toInt()
 
-            loget(dy)
-
             isScrolling = dy > 0
 
 
