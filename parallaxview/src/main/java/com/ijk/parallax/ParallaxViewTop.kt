@@ -54,14 +54,14 @@ class ParallaxViewTop(private val scrollView: ScrollView) {
             if (isFirstTouch && event.action == MotionEvent.ACTION_DOWN) {
                 firstY = rawY + scrollView.scrollY
                 isFirstTouch = false
-                dyFromAnim2 = dyFromAnim
+//                dyFromAnim2 = dyFromAnim
+
+                if (dyFromAnim != 0){
+                    firstY = rawY + scrollView.scrollY - dyFromAnim.toDouble().pow(1.1764).toInt()
+                }
             }
 
-            if (dyFromAnim2 > -1) {
-                dyFromAnim2 = (rawY - firstY).toDouble().pow(0.9).toInt()
-            } else {
-                dyFromAnim2 = -1
-            }
+
 
             if (event.action == 261) {
 //                firstY = rawY
@@ -78,12 +78,23 @@ class ParallaxViewTop(private val scrollView: ScrollView) {
 //                firstY -= rawDY - firstY
             }
 
-            dy = (rawY - firstY).toDouble().pow(0.85).toInt() + dyFromAnim2
+            dy = (rawY - firstY).toDouble().pow(0.85).toInt()
+//            dy = (rawY - firstY).toInt()
 
+//            if (dyFromAnim2 > -1) {
+//                dyFromAnim2 = (rawY - firstY).toDouble().pow(0.85).toInt()
+//                dy = dyFromAnim2
+//            } else {
+//                dyFromAnim2 = -1
+////                dy = (rawY - firstY).toDouble().pow(0.85).toInt() + dyFromAnim2
+//            }
 
 //            dyFromAnim2 = (rawY - firstY).toDouble().pow(0.8).toInt()
 
+            loget(dy)
+
             isScrolling = dy > 0
+
 
             if (event.action == MotionEvent.ACTION_MOVE) {
                 val layoutParams = v?.layoutParams as LinearLayout.LayoutParams
