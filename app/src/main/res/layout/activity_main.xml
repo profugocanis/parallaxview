@@ -54,6 +54,7 @@
                     android:layout_height="200dp"
                     android:gravity="center"
                     android:text="PARALLAXED"
+                    android:background="@color/colorPrimary"
                     android:textSize="50sp"
                     tools:ignore="HardcodedText" />
 

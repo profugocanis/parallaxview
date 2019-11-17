@@ -38,13 +38,13 @@ object Utils {
     fun getTime(f: Int): Long {
         var res = 1L
         if (f < 20) {
-            res = 5L
+            res = 20L
         }
         return res
     }
 
     fun getDY(f: Float): Float {
-        var res = 5F
+        var res = 3F
         if (f < 20) {
             res = 1F
         }

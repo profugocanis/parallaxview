@@ -21,7 +21,6 @@ class ParallaxViewTop(private val scrollView: ScrollView) {
     }
 
     private var dyFromAnim = 0
-    var dyFromAnim2 = 0
 
 
     var rawY = 0F
@@ -34,85 +33,94 @@ class ParallaxViewTop(private val scrollView: ScrollView) {
         var isFirstTouch = true
         var isFirstTouch2 = true
         var dy: Int
-        var isScrolling: Boolean
+        var isScrolling: Boolean = false
+        var dyFromAnim2 = 0
         var rawDY = 0F
         var scrollAdd = 0
 
+        var isDownScroll = false
+
         scrollView.setOnTouchListener { v, event ->
-//            scrollView.isScrollbarFadingEnabled = false
             rawY = event.rawY
 
             if (event.action == MotionEvent.ACTION_UP) {
                 isFirstTouch = true
                 isScrolling = false
                 isAnimate = false
-//                rawDY = 0F
             }
 
-            if (event.action == MotionEvent.ACTION_MOVE && scrollView.scrollY == 0) {
-                val layoutParams = v.layoutParams as LinearLayout.LayoutParams
-                layoutParams.topMargin = scrollTopMargin
-                scrollView.layoutParams = layoutParams
-            }
+
 
             if (isFirstTouch && event.action == MotionEvent.ACTION_DOWN) {
                 firstY = rawY + scrollView.scrollY
-
                 isFirstTouch = false
-
-                rawDY = 0F
                 dyFromAnim2 = dyFromAnim
             }
 
+            if (dyFromAnim2 > -1) {
+                dyFromAnim2 = (rawY - firstY).toDouble().pow(0.9).toInt()
+            } else {
+                dyFromAnim2 = -1
+            }
 
             if (event.action == 261) {
-                firstY = rawY
+//                firstY = rawY
 //                rawDY += rawY
             }
 
             if (event.action == 262) {
-                firstY = rawY
+//                firstY = rawY
 //                firstY -= rawY
             }
 
             if (event.action == 6) {
-                rawDY += firstY
+//                rawDY += firstY
 //                firstY -= rawDY - firstY
             }
 
-
-//            loget(firstY)
-//            loget(event.action)
-
-            dy = (rawY - firstY).toDouble().pow(0.9).toInt() + dyFromAnim2
-//            multiDY = dy.toLong()
+            dy = (rawY - firstY).toDouble().pow(0.85).toInt() + dyFromAnim2
 
 
-//            loget(r261)
-//            loget(r262)
-//            loget(firstY)
+//            dyFromAnim2 = (rawY - firstY).toDouble().pow(0.8).toInt()
 
-            ////
+            isScrolling = dy > 0
 
-            if (dy > 0 && event.action == MotionEvent.ACTION_MOVE && scrollView.scrollY == 0) {
-                isScrolling = true
-
-                val layoutParams = v
-                    ?.layoutParams as LinearLayout.LayoutParams
+            if (event.action == MotionEvent.ACTION_MOVE) {
+                val layoutParams = v?.layoutParams as LinearLayout.LayoutParams
                 layoutParams.topMargin = dy
                 dyFromAnim = dy
                 v.layoutParams = layoutParams
-
             } else {
                 isScrolling = false
                 isAnimate = false
             }
 
+//            if (isDownScroll && event.action == MotionEvent.ACTION_MOVE && scrollView.scrollY == 0) {
+//                val layoutParams = v.layoutParams as LinearLayout.LayoutParams
+//                layoutParams.topMargin = scrollTopMargin
+//                scrollView.layoutParams = layoutParams
+////                isDownScroll = false
+//            }
+//
+//            if (event.action == MotionEvent.ACTION_DOWN && scrollView.scrollY > 0) {
+//                isDownScroll = true
+//            }
+//
+//            if (event.action == MotionEvent.ACTION_UP){
+//                isDownScroll = false
+//            }
+
+//            if (scrollView.scrollY == 0) {
+////                isFirstTouch = true
+//                isScrolling = false
+////                isAnimate = false
+//            }
+
             if (event.action == MotionEvent.ACTION_UP) {
-                if (scrollView.scrollY == 0) {
-                    isAnimate = true
-                    animToTop(v, dyFromAnim)
-                }
+//                if (scrollView.scrollY == 0) {
+                isAnimate = true
+                animToTop(v, dyFromAnim)
+//                }
             }
             isScrolling
         }
@@ -123,10 +131,9 @@ class ParallaxViewTop(private val scrollView: ScrollView) {
             var f = from.toFloat()
             while (f >= scrollTopMargin) {
                 f -= getDY(f)
-                dyFromAnim = f.toInt()
-                Thread.sleep(getTime(f.toInt()), 50)
                 (v?.context as Activity).runOnUiThread {
                     if (isAnimate) {
+                        dyFromAnim = f.toInt()
                         val layoutParams = v.layoutParams as LinearLayout.LayoutParams
                         layoutParams.topMargin = f.toInt()
                         scrollView.layoutParams = layoutParams
@@ -134,6 +141,7 @@ class ParallaxViewTop(private val scrollView: ScrollView) {
                         f = -1f
                     }
                 }
+                Thread.sleep(getTime(f.toInt()), 50)
             }
         }.start()
     }

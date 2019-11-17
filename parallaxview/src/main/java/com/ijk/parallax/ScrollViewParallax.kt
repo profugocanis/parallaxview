@@ -131,7 +131,6 @@ class ScrollViewParallax {
         }
     }
 
-
     private fun scrollTop(event: MotionEvent, d: Int) {
         if (event.action == MotionEvent.ACTION_MOVE && isYFirstTouchTop) {
             yFirstTouchTop = event.y

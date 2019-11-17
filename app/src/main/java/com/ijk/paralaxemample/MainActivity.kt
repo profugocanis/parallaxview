@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ijk.parallax.ParallaxView
 import com.ijk.parallax.ParallaxViewBottom
 import com.ijk.parallax.ParallaxViewTop
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 //        ParallaxView.Builder(this)
 //            .setContentView(R.layout.activity_main)
 ////            .setRecyclerView(recyclerView)
-////            .setToolBarView(toolbar)
+//            .setToolBarView(toolbar)
 ////            .setBottomView(linearLayoutBottom)
 //            .build()
 //        initRecycler()
