@@ -39,7 +39,10 @@
 
         <ScrollView
             android:id="@+id/scrollView"
+            android:theme="@style/MyEdgeOverlayTheme"
             android:layout_width="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -83,7 +86,7 @@
                                  Excepteur sint occaecat cupidatat non
                                   proident, sunt in culpa qui officia
                                    deserunt mollit anim id est laborum."
-                    android:textSize="23sp"
+                    android:textSize="30sp"
                     tools:ignore="HardcodedText" />
 
                 <ImageView

@@ -12,6 +12,7 @@ import kotlin.math.pow
 object Utils {
 
     val POW_COEFFICIENT = 0.9
+    val POW_COEFICIENT = 0.85
 
     fun loget(data: Any) {
         Log.d("IJKAPP", "ijk: $data")
@@ -48,9 +49,7 @@ object Utils {
         if (f <= 0){
             return 1L
         }
-        val res = 70/f.toDouble().pow(0.85).toLong()
-        loget(res)
-        return res
+        return 70/f.toDouble().pow(0.85).toLong()
     }
 
     fun getDY(f: Float): Float {

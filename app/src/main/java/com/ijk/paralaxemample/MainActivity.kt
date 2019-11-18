@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.ijk.parallax.ParallaxView
-import com.ijk.parallax.ParallaxViewBottom
-import com.ijk.parallax.ParallaxViewTop
+import com.ijk.parallax.parallax_margin.ParallaxViewBottom
+import com.ijk.parallax.parallax_margin.ParallaxViewMargin
+import com.ijk.parallax.parallax_margin.ParallaxViewTop
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,8 +24,9 @@ class MainActivity : AppCompatActivity() {
 //        scrollView.setOnTouchListener(OnTuckListener(this, main))
 
 
-        ParallaxViewTop(scrollView)
-//        ParallaxViewBottom(scrollView)
+//        ParallaxViewTop(scrollView, this)
+//        ParallaxViewBottom(scrollView, this)
+        ParallaxViewMargin(scrollView, this)
 
 
 //        ParallaxView.Builder(this)
