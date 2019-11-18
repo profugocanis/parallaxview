@@ -41,8 +41,7 @@
             android:id="@+id/scrollView"
             android:theme="@style/MyEdgeOverlayTheme"
             android:layout_width="match_parent"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp"
+
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 

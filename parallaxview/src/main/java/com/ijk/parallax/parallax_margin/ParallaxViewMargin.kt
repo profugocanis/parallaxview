@@ -21,13 +21,18 @@ class ParallaxViewMargin(private val scrollView: ScrollView, context: Activity) 
     private fun initScroll() {
         scrollView.setOnTouchListener { v, event ->
 
-            if (parallaxViewTop.dy == 0) {
-                parallaxViewBottom.initBottomScroll(event, v)
+            if (parallaxViewTop.dy > 0) {
+                parallaxViewBottom.ifTop = false
+                parallaxViewTop.ifBottom = true
             }
 
-            if (parallaxViewBottom.dy == 0) {
-                parallaxViewTop.initTopScroll(event, v)
+            if (parallaxViewBottom.dy > 0) {
+                parallaxViewBottom.ifTop = true
+                parallaxViewTop.ifBottom = false
             }
+
+            parallaxViewBottom.initBottomScroll(event, v)
+            parallaxViewTop.initTopScroll(event, v)
 
 //            parallaxViewBottom.initBottomScroll(event, v)
 //            parallaxViewTop.initTopScroll(event, v)

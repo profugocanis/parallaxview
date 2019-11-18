@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import androidx.core.view.doOnNextLayout
+import androidx.core.view.doOnPreDraw
 import com.ijk.parallax.Utils.POW_COEFICIENT
 import com.ijk.parallax.Utils.getDY
 import com.ijk.parallax.Utils.getTime
-import com.ijk.parallax.Utils.loget
 import com.ijk.parallax.parallax_margin.ParallaxViewMargin.Companion.isScrolling
 import kotlin.math.pow
 
@@ -22,6 +21,8 @@ class ParallaxViewBottom(private val scrollView: ScrollView, private val context
 //    init {
 //        initScroll()
 //    }
+
+    var ifTop = true
 
     var dyFromAnimBottom = 0
     var isAnimate = true
@@ -76,36 +77,32 @@ class ParallaxViewBottom(private val scrollView: ScrollView, private val context
 
             if (dyFromAnimBottom - scrollBottomMargin > 3) {
                 firstY =
-                    rawY - diff + (dyFromAnimBottom - scrollBottomMargin).toDouble().pow(1 / POW_COEFICIENT).toInt()
+                    rawY - diff + maxScrollViewHeight + (dyFromAnimBottom - scrollBottomMargin).toDouble().pow(
+                        1 / POW_COEFICIENT
+                    ).toInt()
             }
         }
 
         ////////////////////////////
         if (event.action == 6) {
-            firstY = rawY + dyFromAnimBottom.toDouble().pow(1 / POW_COEFICIENT).toFloat()
+            firstY = rawY - diff + dyFromAnimBottom.toDouble().pow(1 / POW_COEFICIENT).toFloat()
         }
 
         if (event.action == 5) {
-            firstY = rawY + dyFromAnimBottom.toDouble().pow(1 / POW_COEFICIENT).toFloat()
+            firstY = rawY - diff + dyFromAnimBottom.toDouble().pow(1 / POW_COEFICIENT).toFloat()
         }
-//////////////////////////////
+        /////////////////////////////
 
         dy = (firstY - rawY).toDouble().pow(POW_COEFICIENT).toInt()
         isScrolling = dy > 0
 
-//        if (isScrolling) {
-//            scrollView.doOnPreDraw {
-//                scrollView.fullScroll(ScrollView.FOCUS_DOWN)
-//            }
-//        }
-
-        if (isScrolling) {
-            scrollView.doOnNextLayout {
-                scrollView.smoothScrollTo(0, maxScrollViewPosition)
+        if (isScrolling && ifTop) {
+            scrollView.doOnPreDraw {
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN)
             }
         }
 
-        if (event.action == MotionEvent.ACTION_MOVE) {
+        if (event.action == MotionEvent.ACTION_MOVE && ifTop) {
             val layoutParams = v.layoutParams as LinearLayout.LayoutParams
             layoutParams.bottomMargin = dy + scrollBottomMargin
             dyFromAnimBottom = dy

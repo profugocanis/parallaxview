@@ -18,6 +18,7 @@ class ParallaxViewTop(private val scrollView: ScrollView, private val context: A
 
     private var dyFromAnimTop = 0
 
+    var ifBottom = true
 
     private var rawY = 0F
     private var isAnimate = true
@@ -59,11 +60,11 @@ class ParallaxViewTop(private val scrollView: ScrollView, private val context: A
         dy = (rawY - firstY).toDouble().pow(POW_COEFICIENT).toInt()
         isScrolling = dy > 0
 
-//        if (dy > 0) {
+//        if (isScrolling && ifBottom) {
 //            scrollView.smoothScrollTo(0, 0)
 //        }
 
-        if (event.action == MotionEvent.ACTION_MOVE) {
+        if (event.action == MotionEvent.ACTION_MOVE && ifBottom) {
             val layoutParams = v.layoutParams as LinearLayout.LayoutParams
             layoutParams.topMargin = dy + scrollTopMargin
             dyFromAnimTop = dy
