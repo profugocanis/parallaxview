@@ -1,4 +1,4 @@
-package com.ijk.parallax.parallax_margin
+package com.ijk.parallax.parallax_margin.recycler_view
 
 import android.app.Activity
 import android.view.MotionEvent
@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ijk.parallax.Utils.POW_COEFICIENT
 import com.ijk.parallax.Utils.getDY
 import com.ijk.parallax.Utils.getTime
+import com.ijk.parallax.Utils.loget
 import com.ijk.parallax.parallax_margin.ParallaxViewMargin.Companion.isScrolling
 import kotlin.math.pow
 
-class ParallaxViewTop(private val scrollView: ScrollView, private val context: Activity) {
+class ParallaxViewTopRecycler(private val scrollView: RecyclerView, private val context: Activity) {
 
     private val scrollTopMargin: Int =
         (scrollView.layoutParams as LinearLayout.LayoutParams).topMargin
@@ -39,6 +40,13 @@ class ParallaxViewTop(private val scrollView: ScrollView, private val context: A
             isAnimate = false
         }
 
+        if (event.action == MotionEvent.ACTION_MOVE) {
+            isScrolling = true
+            isAnimate = false
+        }
+
+        loget(event.action)
+
         if (isFirstTouch && event.action == MotionEvent.ACTION_DOWN) {
             firstY = rawY + scrollView.scrollY
             isFirstTouch = false
@@ -59,8 +67,10 @@ class ParallaxViewTop(private val scrollView: ScrollView, private val context: A
         dy = (rawY - firstY).toDouble().pow(POW_COEFICIENT).toInt()
         isScrolling = dy > 0
 
-//        if (isScrolling && ifBottom) {
-//            scrollView.smoothScrollTo(0, 0)
+//        loget(isScrolling)
+
+//        if (!isScrolling && ifBottom) {
+//            scrollView.scrollTo(0, 0)
 //        }
 
         if (event.action == MotionEvent.ACTION_MOVE && ifBottom) {

@@ -37,14 +37,6 @@ object Utils {
         ).toInt()
     }
 
-//    fun getTime(f: Int): Long {
-//        var res = 1L
-//        if (f < 20) {
-//            res = 20L
-//        }
-//        return res
-//    }
-
     fun getTime(f: Int): Long {
         if (f <= 0){
             return 1L
@@ -52,12 +44,9 @@ object Utils {
         return 70/f.toDouble().pow(0.85).toLong()
     }
 
+
+
     fun getDY(f: Float): Float {
-//        var res = 3F
-//        if (f < 20) {
-//            res = 1F
-//        }
-//        return res
         return 1F
     }
 }

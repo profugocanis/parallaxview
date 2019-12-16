@@ -19,7 +19,7 @@ class ParallaxView(
         isFragment: Boolean
     ) : this(context as AppCompatActivity?, isFragment)
 
-    private val scrollViewParallax = ScrollViewParallax()
+    private val scrollViewParallax = ScrollViewParallax(context)
     private var toolBarView1: View? = null
     private var bottomView1: View? = null
     private var viewNew: View? = null

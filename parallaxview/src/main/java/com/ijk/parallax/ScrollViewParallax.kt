@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import com.ijk.parallax.Utils.POW_COEFFICIENT
+import com.ijk.parallax.Utils.getDY
+import com.ijk.parallax.Utils.loget
 import com.ijk.parallax.Utils.spToPx
 import kotlin.math.abs
 import kotlin.math.pow
 
-class ScrollViewParallax {
+class ScrollViewParallax(private val context: Activity?) {
 
     var viewNew: View? = null
     var scrollView: ScrollView? = null
@@ -140,6 +142,7 @@ class ScrollViewParallax {
             isYFirstTouchTop = true
             yFirstTouchTop = 0F
         }
+
         var dy = abs(event.y - yFirstTouchTop).toDouble().pow(POW_COEFFICIENT).toInt()
 
         if (scrollView?.scrollY!! > d - toolBarViewHeight) {
@@ -183,7 +186,14 @@ class ScrollViewParallax {
         }
         if (event.action == MotionEvent.ACTION_UP) {
             isYFirstTouchBottom = true
+//            isAnimate = true
         }
+
+        if (event.action == MotionEvent.ACTION_MOVE) {
+//            isAnimate = false
+        }
+
+//        loget(event.action)
 
         if (scrollView?.scrollY!! < d + viewChildHeight + bottomViewHeight - scrollViewHeight) {
             isOnPresetBottom = true
@@ -272,20 +282,45 @@ class ScrollViewParallax {
             isEvent1 = true
         }
 
-        if (event == 1) {
+        if (event == MotionEvent.ACTION_UP) {
             if (viewChildHeight < scrollViewHeight) {
-                scrollView?.smoothScrollTo(0, d - toolBarViewHeight)
+                moveTo(d - toolBarViewHeight)
             } else {
                 if (scrollY < d - toolBarViewHeight) {
-                    scrollView?.smoothScrollTo(0, d - toolBarViewHeight)
+                    moveTo(d - toolBarViewHeight)
                 }
                 if (scrollY >= d + viewChildHeight + bottomViewHeight - scrollViewHeight) {
-                    scrollView?.smoothScrollTo(
-                        0,
+                    moveTo(
                         d + viewChildHeight + bottomViewHeight - scrollViewHeight
                     )
                 }
             }
         }
+    }
+
+    private fun moveTo(y: Int) {
+        scrollView?.smoothScrollTo(0, y)
+//        animToBottom(y)
+    }
+
+    private var isAnimate = true
+    private var lastPosition = 0
+
+    private fun animToBottom(from: Int) {
+        Thread {
+            var f = scrollView?.scrollY ?: 0 + lastPosition
+            while (f <= from.toFloat()) {
+                f += 1
+                context?.runOnUiThread {
+                    if (isAnimate) {
+                        scrollView?.scrollTo(0, f)
+                    } else {
+                        f = -1
+                    }
+                }
+                Thread.sleep(Utils.getTime(f.toInt()), 50)
+//                Thread.sleep(getTime(f.toInt()))
+            }
+        }.start()
     }
 }

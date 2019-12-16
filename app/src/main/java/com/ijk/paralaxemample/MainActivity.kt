@@ -8,10 +8,16 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ijk.parallax.ParallaxView
 import com.ijk.parallax.parallax_margin.ParallaxViewBottom
 import com.ijk.parallax.parallax_margin.ParallaxViewMargin
 import com.ijk.parallax.parallax_margin.ParallaxViewTop
+import com.ijk.parallax.parallax_margin.recycler_view.ParallaxViewMarginRecycler
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_blank.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,17 +31,17 @@ class MainActivity : AppCompatActivity() {
 
 
 //        ParallaxViewTop(scrollView, this)
-//        ParallaxViewBottom(scrollView, this)
-        ParallaxViewMargin(scrollView, this)
+//        ParallaxViewMargin(recyclerView, this)
+//        ParallaxViewMarginRecycler(recyclerView, this)
 
 
-//        ParallaxView.Builder(this)
-//            .setContentView(R.layout.activity_main)
-////            .setRecyclerView(recyclerView)
-//            .setToolBarView(toolbar)
-////            .setBottomView(linearLayoutBottom)
-//            .build()
-//        initRecycler()
+        ParallaxView.Builder(this)
+            .setContentView(R.layout.activity_main)
+            .setRecyclerView(recyclerView)
+            .setToolBarView(toolbar)
+//            .setBottomView(linearLayoutBottom)
+            .build()
+        initRecycler()
     }
 
     private fun initRecycler() {
@@ -53,6 +59,11 @@ class MainActivity : AppCompatActivity() {
         animalNames.add("Goat")
         animalNames.add("Goat")
         animalNames.add("Goat")
+        animalNames.add("Goat")
+        animalNames.add("Goat")
+        animalNames.add("Goat")
+        animalNames.add("Goat")
+        animalNames.add("Camel")
         animalNames.add("Camel")
         animalNames.add("Camel")
         animalNames.add("Camel")
@@ -67,10 +78,12 @@ class MainActivity : AppCompatActivity() {
         animalNames.add("Goat")
         animalNames.add("Camel")
 
+        loget(animalNames.size)
+
         val adapter = RecyclerViewAdapter(this, animalNames)
-//        recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.adapter = adapter
-//
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
 //        val r = Random()
 //
 //        txtAddToRecyclerView.setOnClickListener {
@@ -78,8 +91,6 @@ class MainActivity : AppCompatActivity() {
 //            adapter.notifyDataSetChanged()
 //            recyclerView.scrollToPosition(animalNames.size - 1)
 //        }
-
-//        recyclerView.scr
     }
 
     private class OnTuckListener(val context: Context, val mainLayout: ViewGroup) :

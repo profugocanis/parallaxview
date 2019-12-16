@@ -3,6 +3,7 @@ package com.ijk.parallax.parallax_margin
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.widget.ScrollView
+import androidx.recyclerview.widget.RecyclerView
 
 class ParallaxViewMargin(private val scrollView: ScrollView, context: Activity) {
 
@@ -33,9 +34,6 @@ class ParallaxViewMargin(private val scrollView: ScrollView, context: Activity) 
 
             parallaxViewBottom.initBottomScroll(event, v)
             parallaxViewTop.initTopScroll(event, v)
-
-//            parallaxViewBottom.initBottomScroll(event, v)
-//            parallaxViewTop.initTopScroll(event, v)
             isScrolling
         }
     }
